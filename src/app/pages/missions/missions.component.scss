@@ -12,12 +12,16 @@
 }
 
 .connection-component-wrapper {
-  padding: 2% 5% 1% 5%;
+  padding: 2rem 5rem 1rem 5rem;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
   background-color: #16171b;
   z-index: 1000;
+
+  connection-component {
+    height: 5rem;
+  }
 }
 
 section {
@@ -96,19 +100,18 @@ section.missions-section {
 }
 
 .stick {
-  top: 8.5rem;
-  position: sticky;
+  top: 9.5rem;
   position: -webkit-sticky;
+  position: sticky;
   background-color: #16171b;
   z-index: 999;
 }
 
 .sticky-title {
-  height: 3%;
   display: flex;
   align-items: center;
 }
 
 .common-padding {
-  padding: 0% 5%;
+  padding: 0% 5rem;
 }

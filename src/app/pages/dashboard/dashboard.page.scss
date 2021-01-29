@@ -5,7 +5,7 @@
   height: 100%;
   width: 100%;
   display: grid;
-  grid-template-columns: 17rem auto;
+  grid-template-columns: 5rem auto;
   overflow: hidden;
 
   > * {
@@ -18,15 +18,16 @@
 .side-panel {
 
   background-color: #202125;
-  padding: 1rem 2rem;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   .side-panel-header {
 
     display: grid;
     grid-template-columns: 3rem auto;
     align-items: center;
-    padding-bottom: 2rem;
+    padding: 1.5rem 0;
 
     img {
       width: 100%;
@@ -36,46 +37,42 @@
   }
 
   .side-panel-menus {
-    display: grid;
-    grid-template-rows: auto;
-    row-gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 
     button.side-pannel-menu-option {
-
       background-color: inherit;
       height: 3rem;
-      display: grid;
-      grid-template-columns: 2rem auto;
-      column-gap: 1.5rem;
+      display: flex;
+      justify-content: center;
       align-items: center;
       color: white;
       border: none;
-      border-radius: 0.25rem;
+      // border-radius: 0.25rem;
       text-align: left;
-      margin: 0;
-      padding: 0 1rem;
+      width: 100%;
       cursor: pointer;
-
-      .icon {
-
-        padding: 0.25rem;
-
-        svg {
-          fill: darken($color: white, $amount: 50%);
-        }
-
-      }
-
     }
 
     button.side-pannel-menu-option.active {
-
       background-color: #01b075;
+      position: relative;
+      outline: none;
+    }
 
-      .icon svg {
-        fill: white;
-      }
-
+    button.side-pannel-menu-option.active::after {
+      content: "";
+      width: 0.40rem;
+      background-color:  #01b075;
+      top: 0;
+      left: 100%;
+      bottom: 0;
+      display: block;
+      position: absolute;
+      z-index: 1;
+      border-top-right-radius: 0.5rem;
+      border-bottom-right-radius: 0.5rem;
     }
 
   }
