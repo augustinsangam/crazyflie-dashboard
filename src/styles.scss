@@ -1,4 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: #16171b;
+  color: white;
+  font-family: 'Audiowide', cursive, sans-serif;
+}
+
+// .simplebar-content {
+// }
+
+// .simplebar-scroll-content {
+
+// }
+
+.simplebar-scrollbar {
+  // margin-right: 0.5rem;
+}
+
+.simplebar-track.simplebar-vertical {
+  width: 0.75rem !important;
+}
+
+.simplebar-track.simplebar-horizontal .simplebar-scrollbar {
+  // margin-bottom: 0.15rem;
+  height: 1rem !important;
+}
+
+.simplebar-scrollbar:before{
+  background: unset !important;
+}
+
+.simplebar-track {
+  background-color: #000000;
+}
+
+.simplebar-visible {
+  background-color: #808080;
+}

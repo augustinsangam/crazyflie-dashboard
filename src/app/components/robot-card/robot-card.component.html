@@ -1,1 +1,45 @@
-<p>robot-card works!</p>
+<div class="robot-card">
+  <div class="robot-card-preview">
+    <div class="power-button" tabindex="0" mat-button [attr.title]="data.isOn ? 'Drone is flying. Click to turn off.' : 'Drone is not flying. Click to make it fly.'">
+      <mat-icon [class.power-on]="data.isOn">power_settings_new</mat-icon>
+    </div>
+    <img src="/assets/crazyfly.png" alt="" srcset="">
+  </div>
+  <div class="robot-card-description">
+    <div class="title">
+      <h3>{{data.name}}</h3>
+      <h3>Bitcraze Crazyflie 2.0</h3>
+    </div>
+    <div class="robot-card-description-row">
+      <div class="icon-and-text">
+        <mat-icon>speed</mat-icon>
+        <span>Last speed</span>
+      </div>
+      <div class="value text-success">{{data.speed}} km/h</div>
+    </div>
+    <div class="robot-card-description-row">
+      <div class="icon-and-text">
+        <mat-icon>battery_full</mat-icon>
+        <span>Battery level</span>
+      </div>
+      <div class="value text-success" *ngIf="data.batteryPercentage && data.batteryPercentage > 30">{{data.batteryPercentage}} %</div>
+      <div class="value text-error" *ngIf="data.batteryPercentage && data.batteryPercentage <= 30">{{data.batteryPercentage}} %</div>
+      <div class="value text-error" *ngIf="!data.batteryPercentage">N/A</div>
+    </div>
+    <div class="robot-card-description-row">
+      <div class="icon-and-text">
+        <mat-icon>near_me</mat-icon>
+        <span>Localisation</span>
+      </div>
+      <small class="value"></small>
+      <div class="value text-success" *ngIf="data.localization">x: {{data.localization.x}} y: {{data.localization.y}} z: {{data.localization.z}} %</div>
+      <div class="value text-error" *ngIf="!data.localization">N/A</div>
+    </div>
+    <div class="robot-card-description-row">
+      <div class="icon-and-text">
+        <mat-icon>update</mat-icon>
+        <span class="text-info">Updated {{humanizedDate}}</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashboard.page.scss'],
 })
 // eslint-disable-next-line @angular-eslint/component-class-suffix
-export class DashboardPage {}
+export class DashboardPage {
+  constructor(public readonly router: Router) {}
+}
