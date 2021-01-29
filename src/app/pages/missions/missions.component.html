@@ -3,55 +3,45 @@
     <div class="connection-component-wrapper">
       <connection-component></connection-component>
     </div>
-    <section class="drones-section">
-      <div class="sticky-title stick common-padding">
-        <h1>
-          <span>All Drones</span>
-          <span class="dot"></span>
-          <span class="text-grey">6</span>
-        </h1>
-      </div>
-      <div class="common-padding">
-        <div class="robots">
-          <p>Info: You can turn off/on the robot using power button</p>
-          <ngx-simplebar [options]="options">
-            <div class="robots-cards">
-              <robot-card-component></robot-card-component>
-              <robot-card-component></robot-card-component>
-              <robot-card-component></robot-card-component>
-              <robot-card-component></robot-card-component>
-              <robot-card-component></robot-card-component>
-            </div>
-          </ngx-simplebar>
+    <div class="common-padding">
+      <section class="drones-section">
+        <div class="sticky-title stick">
+          <h1>
+            <span>All Drones</span>
+            <span class="dot"></span>
+            <span class="text-grey">6</span>
+          </h1>
         </div>
-      </div>
-    </section>
-    <section class="missions-section">
-      <div class="missions-title sticky-title stick common-padding">
-        <h1>Missions</h1>
-        <button>
-          <mat-icon>add</mat-icon>
-          <span>Start new mission</span>
-        </button>
-      </div>
-      <div class="missions common-padding">
-        <h3 class="m-top">Active missions</h3>
-        <p>No active mission to display ...</p>
-        <h3 class="m-top">Previous missions</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus illum dicta dolores deleniti veritatis reiciendis ipsa, commodi sapiente incidunt nihil quis facilis esse molestiae? Distinctio aspernatur ipsum esse consectetur commodi!</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus illum dicta dolores deleniti veritatis reiciendis ipsa, commodi sapiente incidunt nihil quis facilis esse molestiae? Distinctio aspernatur ipsum esse consectetur commodi!</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus illum dicta dolores deleniti veritatis reiciendis ipsa, commodi sapiente incidunt nihil quis facilis esse molestiae? Distinctio aspernatur ipsum esse consectetur commodi!</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus illum dicta dolores deleniti veritatis reiciendis ipsa, commodi sapiente incidunt nihil quis facilis esse molestiae? Distinctio aspernatur ipsum esse consectetur commodi!</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus illum dicta dolores deleniti veritatis reiciendis ipsa, commodi sapiente incidunt nihil quis facilis esse molestiae? Distinctio aspernatur ipsum esse consectetur commodi!</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus illum dicta dolores deleniti veritatis reiciendis ipsa, commodi sapiente incidunt nihil quis facilis esse molestiae? Distinctio aspernatur ipsum esse consectetur commodi!</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus illum dicta dolores deleniti veritatis reiciendis ipsa, commodi sapiente incidunt nihil quis facilis esse molestiae? Distinctio aspernatur ipsum esse consectetur commodi!</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus illum dicta dolores deleniti veritatis reiciendis ipsa, commodi sapiente incidunt nihil quis facilis esse molestiae? Distinctio aspernatur ipsum esse consectetur commodi!</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus illum dicta dolores deleniti veritatis reiciendis ipsa, commodi sapiente incidunt nihil quis facilis esse molestiae? Distinctio aspernatur ipsum esse consectetur commodi!</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus illum dicta dolores deleniti veritatis reiciendis ipsa, commodi sapiente incidunt nihil quis facilis esse molestiae? Distinctio aspernatur ipsum esse consectetur commodi!</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus illum dicta dolores deleniti veritatis reiciendis ipsa, commodi sapiente incidunt nihil quis facilis esse molestiae? Distinctio aspernatur ipsum esse consectetur commodi!</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus illum dicta dolores deleniti veritatis reiciendis ipsa, commodi sapiente incidunt nihil quis facilis esse molestiae? Distinctio aspernatur ipsum esse consectetur commodi!</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus illum dicta dolores deleniti veritatis reiciendis ipsa, commodi sapiente incidunt nihil quis facilis esse molestiae? Distinctio aspernatur ipsum esse consectetur commodi!</p>
-      </div>
-    </section>
+        <div>
+          <div class="robots">
+            <p>Info: You can turn off/on the robot using power button</p>
+            <ngx-simplebar [options]="options">
+              <div class="robots-cards">
+                <robot-card-component></robot-card-component>
+                <robot-card-component></robot-card-component>
+                <robot-card-component></robot-card-component>
+                <robot-card-component></robot-card-component>
+                <robot-card-component></robot-card-component>
+              </div>
+            </ngx-simplebar>
+          </div>
+        </div>
+      </section>
+      <section class="missions-section">
+        <div class="missions-title sticky-title stick">
+          <h1>Missions</h1>
+          <button>
+            <mat-icon>add</mat-icon>
+            <span>Start new mission</span>
+          </button>
+        </div>
+        <div class="missions">
+          <h3 class="m-top">Active missions</h3>
+          <p>No active mission to display ...</p>
+          <h3 class="m-top">Previous missions</h3>
+          <p>Coming soon in the CDR !!!!</p>
+        </div>
+      </section>
+    </div>
   </ngx-simplebar>
 </div>

@@ -4,20 +4,22 @@
 }
 
 .main-content-scrollbar {
-
   width: 100%;
   height: 100%;
   display: block;
+}
 
+.common-padding {
+  padding: 2rem 5rem;
 }
 
 .connection-component-wrapper {
-  padding: 2rem 5rem 1rem 5rem;
   position: -webkit-sticky;
   position: sticky;
-  top: 0;
+  top: 0rem;
   background-color: #16171b;
   z-index: 1000;
+  padding: 2rem 5rem 0 5rem;
 
   connection-component {
     height: 5rem;
@@ -100,7 +102,7 @@ section.missions-section {
 }
 
 .stick {
-  top: 9.5rem;
+  top: 7rem;
   position: -webkit-sticky;
   position: sticky;
   background-color: #16171b;
@@ -110,8 +112,4 @@ section.missions-section {
 .sticky-title {
   display: flex;
   align-items: center;
-}
-
-.common-padding {
-  padding: 0% 5rem;
 }
