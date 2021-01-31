@@ -23,6 +23,6 @@ export class RobotCardComponent implements OnChanges, OnInit {
   }
 
   private updateHumanizeDate(): void {
-    this.humanizedDate = relativeTime(this.data.lastUpdate);
+    this.humanizedDate = relativeTime(new Date(this.data.lastUpdate));
   }
 }

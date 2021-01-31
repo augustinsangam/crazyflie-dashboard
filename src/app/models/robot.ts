@@ -1,4 +1,3 @@
-
 interface Localization {
   x: number;
   y: number;
@@ -10,13 +9,13 @@ export interface Robot {
   speed: number;
   batteryPercentage?: number;
   localization?: Localization;
-  lastUpdate: Date;
+  lastUpdate: number;
   isOn: boolean;
 }
 
 export const DEFAULT_ROBOT: Robot = {
   name: `Fly # ${Math.ceil(Math.random() * 100)}`,
   speed: 0,
-  lastUpdate: new Date(),
-  isOn: false
+  lastUpdate: Date.now(),
+  isOn: false,
 };
