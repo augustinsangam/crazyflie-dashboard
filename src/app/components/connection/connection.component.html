@@ -1,11 +1,7 @@
 <h3>Connection status : </h3>
-<chip-component color="#DD0000">
-  Connection lost
+<chip-component color="#DD0000" blinking="true" *ngIf="!socketService.isConnected">
+  Connecting
 </chip-component>
-<chip-component color="skyblue" blinking="true">
-  Computing
-</chip-component>
-<chip-component color="#01b075">
+<chip-component color="#01b075" *ngIf="socketService.isConnected">
   Connected
 </chip-component>
-

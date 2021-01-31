@@ -9,21 +9,25 @@
           <h1>
             <span>All Drones</span>
             <span class="dot"></span>
-            <span class="text-grey">6</span>
+            <span class="text-grey">{{ robotService.robots.length }}</span>
           </h1>
         </div>
         <div>
           <div class="robots">
-            <p>Info: You can turn off/on the robot using power button</p>
-            <ngx-simplebar [options]="options">
-              <div class="robots-cards">
-                <robot-card-component></robot-card-component>
-                <robot-card-component></robot-card-component>
-                <robot-card-component></robot-card-component>
-                <robot-card-component></robot-card-component>
-                <robot-card-component></robot-card-component>
-              </div>
-            </ngx-simplebar>
+            <ng-container *ngIf="robotService.robots.length">
+              <p>Info: You can takeoff/land the robot using power button.</p>
+              <ngx-simplebar [options]="options">
+                <div class="robots-cards">
+                  <robot-card-component
+                    [data]="robot"
+                    *ngFor="let robot of robotService.robots"
+                    (land)="onLandRobot(robot)"
+                    (takeOff)="onTakeOffRobot(robot)"
+                  ></robot-card-component>
+                </div>
+              </ngx-simplebar>
+            </ng-container>
+            <p *ngIf="!robotService.robots.length">No robot to display.</p>
           </div>
         </div>
       </section>

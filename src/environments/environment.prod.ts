@@ -1,5 +1,4 @@
 export const environment = {
   production: true,
-  serverPort: 8080,
-  serverAddress: 'localhost'
+  serverWebSocketAddress: 'ws://localhost:5000/dashboard'
 };
