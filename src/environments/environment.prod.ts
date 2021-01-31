@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  serverPort: 8080,
+  serverAddress: 'localhost'
 };

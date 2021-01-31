@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SocketService } from 'src/app/communication/socket.service';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./connection.component.scss'],
 })
 export class ConnectionComponent implements OnInit {
-  constructor() {}
+  constructor(public readonly socketService: SocketService) {}
 
   ngOnInit(): void {}
 }
