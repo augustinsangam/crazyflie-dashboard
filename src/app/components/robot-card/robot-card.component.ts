@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import { relativeTime } from 'human-date';
 import { DEFAULT_ROBOT, Robot } from 'src/app/models/robot';
 @Component({
@@ -8,7 +16,6 @@ import { DEFAULT_ROBOT, Robot } from 'src/app/models/robot';
   styleUrls: ['./robot-card.component.scss'],
 })
 export class RobotCardComponent implements OnChanges, OnInit {
-
   @Input() data: Robot = DEFAULT_ROBOT;
   @Output() land = new EventEmitter<null>();
   @Output() takeOff = new EventEmitter<null>();
@@ -25,7 +32,7 @@ export class RobotCardComponent implements OnChanges, OnInit {
   }
 
   onClick(): void {
-    if (this.data.isOn) {
+    if (this.data.flying) {
       this.land.emit(null);
     } else {
       this.takeOff.emit(null);
@@ -33,7 +40,6 @@ export class RobotCardComponent implements OnChanges, OnInit {
   }
 
   private updateHumanizeDate(): void {
-    this.humanizedDate = relativeTime(new Date(this.data.lastUpdate*1000));
+    this.humanizedDate = relativeTime(new Date(this.data.timestamp * 1000));
   }
-
 }

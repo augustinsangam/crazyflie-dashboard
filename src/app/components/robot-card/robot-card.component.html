@@ -5,13 +5,13 @@
       tabindex="0"
       mat-button
       [attr.title]="
-        data.isOn
+        data.flying
           ? 'Drone is flying. Click to make it land.'
           : 'Drone is not flying. Click to make it fly.'
       "
       (click)="onClick()"
     >
-      <mat-icon [class.power-on]="data.isOn">power_settings_new</mat-icon>
+      <mat-icon [class.power-on]="data.flying">power_settings_new</mat-icon>
     </div>
     <img src="/assets/crazyfly.png" alt="" srcset="" />
   </div>
@@ -34,17 +34,17 @@
       </div>
       <div
         class="value text-success"
-        *ngIf="data.batteryPercentage && data.batteryPercentage > 30"
+        *ngIf="data.battery && data.battery > 30"
       >
-        {{ data.batteryPercentage }} %
+        {{ data.battery }} %
       </div>
       <div
         class="value text-error"
-        *ngIf="data.batteryPercentage && data.batteryPercentage <= 30"
+        *ngIf="data.battery && data.battery <= 30"
       >
-        {{ data.batteryPercentage }} %
+        {{ data.battery }} %
       </div>
-      <div class="value text-error" *ngIf="!data.batteryPercentage">N/A</div>
+      <div class="value text-error" *ngIf="!data.battery">N/A</div>
     </div>
     <div class="robot-card-description-row">
       <div class="icon-and-text">
@@ -52,11 +52,11 @@
         <span>Localisation</span>
       </div>
       <small class="value"></small>
-      <div class="value text-success" *ngIf="data.localization">
-        x: {{ data.localization.x }} y: {{ data.localization.y }} z:
-        {{ data.localization.z }} %
+      <div class="value text-success" *ngIf="data.position">
+        x: {{ data.position[0] }} y: {{ data.position[1] }} z:
+        {{ data.position[1] }} %
       </div>
-      <div class="value text-error" *ngIf="!data.localization">N/A</div>
+      <div class="value text-error" *ngIf="!data.position">N/A</div>
     </div>
     <div class="robot-card-description-row">
       <div class="icon-and-text">
