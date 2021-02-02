@@ -43,8 +43,15 @@
     grid-template-columns: auto;
     row-gap: 0.5rem;
 
+    > * {
+      min-width: 0;
+    }
+
     h3 {
       text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     &-row {
