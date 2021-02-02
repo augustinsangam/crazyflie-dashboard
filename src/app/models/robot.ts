@@ -4,7 +4,7 @@ export interface Robot {
   speed: number;
   battery?: number;
   position?: [number, number, number];
-  "flying"?: boolean;
+  flying?: boolean;
 }
 
 export const DEFAULT_ROBOT: Robot = {

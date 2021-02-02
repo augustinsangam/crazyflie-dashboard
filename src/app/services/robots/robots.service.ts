@@ -3,10 +3,9 @@ import { Robot } from 'src/app/models/robot';
 import { SocketService } from '../communication/socket.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RobotsService {
-
   robots: Robot[] = [];
 
   constructor(private readonly socketService: SocketService) {
@@ -28,8 +27,8 @@ export class RobotsService {
     this.socketService.sendMessage({
       type: 'take_off',
       data: {
-        robotName
-      }
+        name: robotName,
+      },
     });
   }
 
@@ -37,9 +36,8 @@ export class RobotsService {
     this.socketService.sendMessage({
       type: 'land',
       data: {
-        robotName
-      }
+        name: robotName,
+      },
     });
   }
-
 }
