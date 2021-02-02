@@ -23,40 +23,37 @@
     <div class="robot-card-description-row">
       <div class="icon-and-text">
         <mat-icon>speed</mat-icon>
-        <span>Last speed</span>
+        <span>Speed</span>
       </div>
       <div class="value text-success">{{ data.speed.toFixed(2) }} km/h</div>
     </div>
     <div class="robot-card-description-row">
       <div class="icon-and-text">
         <mat-icon>battery_full</mat-icon>
-        <span>Battery level</span>
+        <span>Battery</span>
       </div>
-      <div
-        class="value text-success"
-        *ngIf="data.battery && data.battery > 30"
-      >
+      <div class="value text-success" *ngIf="data.battery && data.battery > 30">
         {{ (data.battery * 100).toFixed(1) }} %
       </div>
-      <div
-        class="value text-error"
-        *ngIf="data.battery && data.battery <= 30"
-      >
+      <div class="value text-error" *ngIf="data.battery && data.battery <= 30">
         {{ (data.battery * 100).toFixed(1) }} %
       </div>
       <div class="value text-error" *ngIf="!data.battery">N/A</div>
     </div>
     <div class="robot-card-description-row">
-      <div class="icon-and-text">
+      <div class="icon-and-value">
         <mat-icon>near_me</mat-icon>
-        <span>Localisation</span>
+        <div class="value text-success position" *ngIf="data.position">
+          <span>x: <span class="text-success">{{ data.position[0].toFixed(2) }}</span></span>
+          <span>y: <span class="text-success">{{ data.position[1].toFixed(2) }}</span></span>
+          <span>z: <span class="text-success">{{ data.position[1].toFixed(2) }}</span></span>
+        </div>
+        <div class="value text-error position" *ngIf="!data.position">
+          <span>x: <span class="text-error">N/A</span></span>
+          <span>y: <span class="text-error">N/A</span></span>
+          <span>z: <span class="text-error">N/A</span></span>
+        </div>
       </div>
-      <small class="value"></small>
-      <div class="value text-success" *ngIf="data.position">
-        x: {{ data.position[0].toFixed(2) }} y: {{ data.position[1].toFixed(2) }} z:
-        {{ data.position[1].toFixed(2) }}
-      </div>
-      <div class="value text-error" *ngIf="!data.position">N/A</div>
     </div>
     <div class="robot-card-description-row">
       <div class="icon-and-text">
