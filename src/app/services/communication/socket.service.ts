@@ -48,7 +48,7 @@ export class SocketService {
 
   private onReceiveMessage(message: { type: string; data: any }): void {
     switch (message.type) {
-      case 'robot_update':
+      case 'pulse':
         this.robotsUpdates.next(message.data);
         break;
       default:
