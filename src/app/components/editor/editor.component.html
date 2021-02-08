@@ -1,0 +1,40 @@
+<div class="wrapper">
+  <div class="header">
+    <button class="button-neutral" (click)="resetCode.emit(null)">Reset</button>
+    <div>
+      <button
+        class="button-neutral m-right"
+        (click)="compileCode.emit(null)"
+        [disabled]="disableSend"
+      >
+        Compile
+      </button>
+      <button
+        class="button-success"
+        (click)="sendCode.emit(null)"
+        [disabled]="disableSend"
+      >
+        Send to all
+      </button>
+    </div>
+  </div>
+  <div class="content">
+    <ngx-codemirror
+      [(ngModel)]="value"
+      (ngModelChange)="valueChange.emit($event)"
+      [options]="options"
+    ></ngx-codemirror>
+  </div>
+  <div class="footer" *ngIf="output">
+    <span *ngIf="output.status === 'loading'" class="text-info">
+      Loading
+    </span>
+    <span *ngIf="output.status === 'success'" class="text-success">
+      Success
+    </span>
+    <span *ngIf="output.status === 'error'" class="text-error">
+      Error
+    </span>
+    <span>{{ output.message }}</span>
+  </div>
+</div>

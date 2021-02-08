@@ -1,0 +1,55 @@
+.wrapper {
+  border: 2px solid #202125;
+  border-radius: 0.25rem;
+
+  .header {
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      border: 1px solid #202125;
+      border-radius: 0.25rem;
+      color: white;
+      padding: 0.5rem 0.75rem;
+      outline: none;
+      cursor: pointer;
+    }
+
+    button.button-neutral {
+      background-color: #202125;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    button.button-success {
+      background-color: #01b075;
+    }
+
+    .m-right {
+      margin-right: .5rem;
+    }
+  }
+
+  .footer {
+    padding: 0.75rem 1rem;
+    white-space: pre-line;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.text-success {
+  color: #01b075;
+}
+
+.text-error {
+  color: #dd0000;
+}
+
+.text-info {
+  color: #87ceeb;
+}

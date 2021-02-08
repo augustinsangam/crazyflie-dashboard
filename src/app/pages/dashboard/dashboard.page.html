@@ -4,10 +4,13 @@
   </div>
   <div class="side-panel-menus">
     <button class="side-pannel-menu-option" [class.active]="router.url === '/home'" routerLink="/home">
-      <mat-icon>home</mat-icon>
+      <icon-component iconName="home"></icon-component>
+    </button>
+    <button class="side-pannel-menu-option" [class.active]="router.url === '/code'" routerLink="/code">
+      <icon-component iconName="code"></icon-component>
     </button>
     <button class="side-pannel-menu-option" [class.active]="router.url === '/about'" routerLink="/about">
-      <mat-icon>info</mat-icon>
+      <icon-component iconName="info"></icon-component>
     </button>
   </div>
 </div>

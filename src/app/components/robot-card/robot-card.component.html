@@ -1,18 +1,38 @@
 <div class="robot-card">
   <div class="robot-card-preview">
-    <div
-      class="power-button"
-      tabindex="0"
-      mat-button
-      [attr.title]="
-        data.flying
-          ? 'Drone is flying. Click to make it land.'
-          : 'Drone is not flying. Click to make it fly.'
-      "
-      (click)="onClick()"
-    >
-      <mat-icon [class.power-on]="data.flying">power_settings_new</mat-icon>
+    <div class="util-buttons">
+      <div
+        class="util-button"
+        tabindex="0"
+        [attr.title]="
+          data.ledOn
+            ? 'Drone is flying. Click to make it land.'
+            : 'Drone is not flying. Click to make it fly.'
+        "
+        (click)="onPowerClick()"
+      >
+        <icon-component
+          [iconName]="data.ledOn ? 'flight_takeoff' : 'flight_land'"
+          [class.power-on]="data.flying"
+        ></icon-component>
+      </div>
+      <div
+        class="util-button"
+        tabindex="0"
+        [attr.title]="
+          data.flying
+            ? 'Light are on. Click to turn off.'
+            : 'Light are off. Click to make turn on.'
+        "
+        (click)="onLedClick()"
+      >
+        <icon-component
+          iconName="lightbulb"
+          [class.power-on]="data.flying"
+        ></icon-component>
+      </div>
     </div>
+
     <img src="/assets/crazyfly.png" alt="" srcset="" />
   </div>
   <div class="robot-card-description">
@@ -22,14 +42,14 @@
     </div>
     <div class="robot-card-description-row">
       <div class="icon-and-text">
-        <mat-icon>speed</mat-icon>
+        <icon-component iconName="speed"></icon-component>
         <span>Speed</span>
       </div>
       <div class="value text-success">{{ data.speed.toFixed(2) }} km/h</div>
     </div>
     <div class="robot-card-description-row">
       <div class="icon-and-text">
-        <mat-icon>battery_full</mat-icon>
+        <icon-component iconName="battery_full"></icon-component>
         <span>Battery</span>
       </div>
       <div class="value text-success" *ngIf="data.battery && data.battery > 30">
@@ -42,11 +62,26 @@
     </div>
     <div class="robot-card-description-row">
       <div class="icon-and-value">
-        <mat-icon>near_me</mat-icon>
+        <icon-component iconName="near_me"></icon-component>
         <div class="value text-success position" *ngIf="data.position">
-          <span>x: <span class="text-success">{{ data.position[0].toFixed(2) }}</span></span>
-          <span>y: <span class="text-success">{{ data.position[1].toFixed(2) }}</span></span>
-          <span>z: <span class="text-success">{{ data.position[1].toFixed(2) }}</span></span>
+          <span
+            >x:
+            <span class="text-success">{{
+              data.position[0].toFixed(2)
+            }}</span></span
+          >
+          <span
+            >y:
+            <span class="text-success">{{
+              data.position[1].toFixed(2)
+            }}</span></span
+          >
+          <span
+            >z:
+            <span class="text-success">{{
+              data.position[1].toFixed(2)
+            }}</span></span
+          >
         </div>
         <div class="value text-error position" *ngIf="!data.position">
           <span>x: <span class="text-error">N/A</span></span>
@@ -57,7 +92,7 @@
     </div>
     <div class="robot-card-description-row">
       <div class="icon-and-text">
-        <mat-icon>update</mat-icon>
+        <icon-component iconName="update"></icon-component>
         <span class="text-info">Updated {{ humanizedDate }}</span>
       </div>
     </div>

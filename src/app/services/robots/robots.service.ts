@@ -25,7 +25,7 @@ export class RobotsService {
 
   takeOffRobot(robotName: string): void {
     this.socketService.sendMessage({
-      type: 'take_off',
+      type: 'takeOff',
       data: {
         name: robotName,
       },
@@ -38,6 +38,31 @@ export class RobotsService {
       data: {
         name: robotName,
       },
+    });
+  }
+
+  lightenRobot(robotName: string): void {
+    this.socketService.sendMessage({
+      type: 'lighten',
+      data: {
+        name: robotName,
+      },
+    });
+  }
+
+  darkenRobot(robotName: string): void {
+    this.socketService.sendMessage({
+      type: 'darken',
+      data: {
+        name: robotName,
+      },
+    });
+  }
+
+  startNewMission(): void {
+    this.socketService.sendMessage({
+      type: 'startMission',
+      data: null,
     });
   }
 }

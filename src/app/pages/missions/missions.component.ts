@@ -25,4 +25,17 @@ export class MissionsPage {
   onTakeOffRobot(robot: Robot): void {
     this.robotService.takeOffRobot(robot.name);
   }
+
+  onLightenRobot(robot: Robot): void {
+    this.robotService.lightenRobot(robot.name);
+  }
+
+  onDarkenRobot(robot: Robot): void {
+    this.robotService.darkenRobot(robot.name);
+  }
+
+  onStartMission(): void {
+    this.robotService.startNewMission();
+    window.alert('Mission started');
+  }
 }

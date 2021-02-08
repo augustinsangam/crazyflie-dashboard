@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~codemirror/lib/codemirror';
+@import '~codemirror/theme/material-ocean';
 
 html,
 body {
@@ -10,6 +12,10 @@ body {
   background-color: #16171b;
   color: white;
   font-family: 'Audiowide', cursive, sans-serif;
+}
+
+button {
+  font: inherit;
 }
 
 // .simplebar-content {
@@ -42,4 +48,9 @@ body {
 
 .simplebar-visible {
   background-color: #808080;
+}
+
+.CodeMirror {
+  height: auto;
+  background-color: #202125 !important;
 }

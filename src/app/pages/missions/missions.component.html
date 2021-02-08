@@ -23,6 +23,8 @@
                     *ngFor="let robot of robotService.robots"
                     (land)="onLandRobot(robot)"
                     (takeOff)="onTakeOffRobot(robot)"
+                    (lighten)="onLightenRobot(robot)"
+                    (lighten)="onDarkenRobot(robot)"
                   ></robot-card-component>
                 </div>
               </ngx-simplebar>
@@ -34,9 +36,9 @@
       <section class="missions-section">
         <div class="missions-title sticky-title stick">
           <h1>Missions</h1>
-          <button>
-            <mat-icon>add</mat-icon>
-            <span>Start new mission</span>
+          <button (click)="onStartMission()">
+            <icon-component iconName="add"></icon-component>
+            <span>New mission</span>
           </button>
         </div>
         <div class="missions">

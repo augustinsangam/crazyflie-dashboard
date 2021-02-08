@@ -12,19 +12,30 @@
     align-items: center;
     position: relative;
 
-    .power-button {
+    .util-buttons {
       position: absolute;
-      background-color: #202125;
       top: 1rem;
       right: 1rem;
-      width: 3rem;
-      height: 3rem;
-      border-radius: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #dd0000;
+
       cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      margin: -0.25rem 0;
+
+      .util-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0.25rem 0;
+        background-color: #202125;
+        border-radius: 100%;
+        width: 3rem;
+        height: 3rem;
+
+        icon-component ::ng-deep svg {
+          fill: #dd0000;
+        }
+      }
     }
 
     .power-on {

@@ -1,0 +1,24 @@
+<div class="content">
+  <ngx-simplebar class="main-content-scrollbar" [options]="options">
+    <div class="connection-component-wrapper">
+      <connection-component></connection-component>
+    </div>
+    <div class="common-padding">
+      <section class="drones-section">
+        <div class="sticky-title stick">
+          <h1>Code playground</h1>
+        </div>
+        <div class="editor-container" #container>
+          <editor-component
+            [(value)]="code"
+            [output]="editorOutput"
+            [disableSend]="!socketService.isConnected || isBusy"
+            (resetCode)="onResetCode()"
+            (compileCode)="onCompileCode()"
+            (sendCode)="onSendCode()"
+          ></editor-component>
+        </div>
+      </section>
+    </div>
+  </ngx-simplebar>
+</div>
