@@ -19,7 +19,7 @@ export class RobotsService {
     if (indexOfRobot === -1) {
       this.robots.push(robot);
     } else {
-      this.robots[indexOfRobot] = robot;
+      Object.assign(this.robots[indexOfRobot], robot);
     }
   }
 

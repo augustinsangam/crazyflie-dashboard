@@ -5,14 +5,14 @@
         class="util-button"
         tabindex="0"
         [attr.title]="
-          data.ledOn
+          data.flying
             ? 'Drone is flying. Click to make it land.'
             : 'Drone is not flying. Click to make it fly.'
         "
         (click)="onPowerClick()"
       >
         <icon-component
-          [iconName]="data.ledOn ? 'flight_takeoff' : 'flight_land'"
+          [iconName]="data.flying ? 'flight_takeoff' : 'flight_land'"
           [class.power-on]="data.flying"
         ></icon-component>
       </div>
@@ -20,7 +20,7 @@
         class="util-button"
         tabindex="0"
         [attr.title]="
-          data.flying
+          data.ledOn
             ? 'Light are on. Click to turn off.'
             : 'Light are off. Click to make turn on.'
         "
@@ -28,7 +28,7 @@
       >
         <icon-component
           iconName="lightbulb"
-          [class.power-on]="data.flying"
+          [class.power-on]="data.ledOn"
         ></icon-component>
       </div>
     </div>
@@ -53,12 +53,12 @@
         <span>Battery</span>
       </div>
       <div class="value text-success" *ngIf="data.battery && data.battery > 30">
-        {{ (data.battery * 100).toFixed(1) }} %
+        {{ (data.battery).toFixed(1) }} %
       </div>
-      <div class="value text-error" *ngIf="data.battery && data.battery <= 30">
-        {{ (data.battery * 100).toFixed(1) }} %
+      <div class="value text-error" *ngIf="(data.battery && data.battery <= 30) || data.battery === 0">
+        {{ (data.battery).toFixed(1) }} %
       </div>
-      <div class="value text-error" *ngIf="!data.battery">N/A</div>
+      <div class="value text-error" *ngIf="!data.battery && data.battery !== 0">N/A</div>
     </div>
     <div class="robot-card-description-row">
       <div class="icon-and-value">

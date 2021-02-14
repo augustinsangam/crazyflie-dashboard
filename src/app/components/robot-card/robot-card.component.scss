@@ -38,8 +38,10 @@
       }
     }
 
-    .power-on {
-      color: #01b075;
+    icon-component.power-on {
+      ::ng-deep svg {
+        fill: #01b075 !important;
+      }
     }
 
     img {
