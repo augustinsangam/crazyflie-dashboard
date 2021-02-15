@@ -12,9 +12,7 @@ export class SocketService {
   robotsUpdates = new ReplaySubject<Robot>();
 
   constructor() {
-    setTimeout(() => {
-      this.open();
-    }, 2000);
+    this.open();
   }
 
   sendMessage(message: { type: string; data: any }): void {
