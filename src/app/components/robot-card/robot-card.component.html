@@ -10,6 +10,7 @@
             : 'Drone is not flying. Click to make it fly.'
         "
         (click)="onPowerClick()"
+        *ngIf="!data.real"
       >
         <icon-component
           [iconName]="data.flying ? 'flight_takeoff' : 'flight_land'"
@@ -25,6 +26,7 @@
             : 'Light are off. Click to make turn on.'
         "
         (click)="onLedClick()"
+        *ngIf="data.real"
       >
         <icon-component
           iconName="lightbulb"

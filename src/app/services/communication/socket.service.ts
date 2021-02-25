@@ -9,12 +9,11 @@ import { environment as env } from 'src/environments/environment';
 export class SocketService {
   isConnected = false;
   socket: WebSocket;
-  robotsUpdates = new ReplaySubject<Robot>();
+  robotsPulses = new ReplaySubject<Robot>();
+  robotsDisconnected = new ReplaySubject<string>();
 
   constructor() {
-    setTimeout(() => {
-      this.open();
-    }, 2000);
+    this.open();
   }
 
   sendMessage(message: { type: string; data: any }): void {
@@ -49,7 +48,10 @@ export class SocketService {
   private onReceiveMessage(message: { type: string; data: any }): void {
     switch (message.type) {
       case 'pulse':
-        this.robotsUpdates.next(message.data);
+        this.robotsPulses.next(message.data);
+        break;
+      case 'pulse':
+        this.robotsDisconnected.next(message.data.name);
         break;
       default:
         throw new Error(`Unrecognized command ${message.type}`);

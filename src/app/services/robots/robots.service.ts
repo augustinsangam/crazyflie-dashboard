@@ -9,8 +9,12 @@ export class RobotsService {
   robots: Robot[] = [];
 
   constructor(private readonly socketService: SocketService) {
-    this.socketService.robotsUpdates.subscribe((robot) => {
+    this.socketService.robotsPulses.subscribe((robot) => {
       this.onReceivedRobotUpdate(robot);
+    });
+
+    this.socketService.robotsDisconnected.subscribe((robotName) => {
+      this.onReceivedRobotDisconnection(robotName);
     });
   }
 
@@ -21,6 +25,10 @@ export class RobotsService {
     } else {
       Object.assign(this.robots[indexOfRobot], robot);
     }
+  }
+
+  onReceivedRobotDisconnection(robotName: string): void {
+    this.robots = this.robots.filter(r => r.name !== robotName);
   }
 
   takeOffRobot(robotName: string): void {

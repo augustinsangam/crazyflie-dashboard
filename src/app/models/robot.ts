@@ -6,6 +6,7 @@ export interface Robot {
   position?: [number, number, number];
   flying?: boolean;
   ledOn: boolean;
+  real: boolean;
 }
 
 export const DEFAULT_ROBOT: Robot = {
@@ -13,5 +14,6 @@ export const DEFAULT_ROBOT: Robot = {
   timestamp: Date.now() / 1000,
   speed: 0,
   flying: false,
-  ledOn: false
+  ledOn: false,
+  real: false
 };
