@@ -13,13 +13,14 @@ export class SocketService {
   robotsDisconnected = new ReplaySubject<string>();
 
   constructor() {
-    this.open();
+    // this.open();
   }
 
   sendMessage(message: { type: string; data: any }): void {
     const messageStr = JSON.stringify(message);
+    console.log('Sending message', messageStr);
     this.socket.send(messageStr);
-    console.log('Send message', messageStr);
+    console.log('Sent message', messageStr);
   }
 
   private open(): void {

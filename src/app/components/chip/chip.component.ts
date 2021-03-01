@@ -10,5 +10,6 @@ export class ChipComponent  {
 
   @Input() color = 'white';
   @Input() blinking = false;
+  @Input() showIndicator = true;
 
 }

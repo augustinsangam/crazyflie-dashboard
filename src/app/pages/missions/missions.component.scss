@@ -77,13 +77,28 @@ section.missions-section {
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+
+    > * {
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
+      height: 2.25rem;
+    }
+
+    select {
+      border-radius: 0.15rem;
+      background-color: #16171b;
+      border: 2px solid white;
+      color: white;
+    }
 
     button {
-      margin-left: 2rem;
       background-color: inherit;
       color: white;
-      padding: 0.5rem 1rem;
-      height: min-content;
+      min-height: 100%;
+      padding-left: 0.5rem;
+      padding-right: 1rem;
       display: flex;
       align-items: center;
       border: 2px solid white;

@@ -1,4 +1,4 @@
 <div class="chip-wrapper" [style.borderColor]="color" [style.color]="color">
-  <div class="indicator" [class.blinking]="blinking" [style.backgroundColor]="color"></div>
+  <div *ngIf="showIndicator" class="indicator" [class.blinking]="blinking" [style.backgroundColor]="color"></div>
   <ng-content></ng-content>
 </div>

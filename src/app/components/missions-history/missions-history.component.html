@@ -1,0 +1,43 @@
+<p *ngIf="!missions || !missions.length">No mission to display ...</p>
+<ng-container *ngIf="missions && missions.length">
+  <table>
+    <tr>
+      <th>Date</th>
+      <th>Id</th>
+      <th>Type</th>
+      <th>Status</th>
+      <th class="unfold-more"></th>
+    </tr>
+    <ng-container *ngFor="let mission of missions">
+      <tr>
+        <td>{{ mission.timestamp }}</td>
+        <td>{{ mission.id }}</td>
+        <td>{{ mission.type }}</td>
+        <td>{{ mission.status }}</td>
+        <td class="unfold-more pointer" [attr.rowspan]="true ? 2 : 1">
+          <div class="center">
+            <icon-component iconName="unfold_more"></icon-component>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="true">
+        <td colspan="4">
+          <div class="center flex-column">
+            <div class="drone-list">
+              <chip-component
+                *ngFor="let drone of mission.drones"
+                [blinking]="false"
+                [color]="drone.color"
+                [showIndicator]="false"
+                >{{ drone.name }}
+                </chip-component>
+            </div>
+            <div>HEHE</div>
+            <div>HEHE</div>
+            <div>HEHE</div>
+          </div>
+        </td>
+      </tr>
+    </ng-container>
+  </table>
+</ng-container>

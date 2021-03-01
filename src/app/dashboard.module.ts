@@ -9,6 +9,7 @@ import { ChipComponent } from './components/chip/chip.component';
 import { ConnectionComponent } from './components/connection/connection.component';
 import { EditorComponent } from './components/editor/editor.component';
 import { IconComponent } from './components/icon/icon.component';
+import { MissionsHistoryComponent } from './components/missions-history/missions-history.component';
 import { RobotCardComponent } from './components/robot-card/robot-card.component';
 import { RoutingModule } from './modules/routing.module';
 import { AboutPage } from './pages/about/about.component';
@@ -17,10 +18,17 @@ import { DashboardPage } from './pages/dashboard/dashboard.page';
 import { MissionsPage } from './pages/missions/missions.component';
 
 const pages = [AboutPage, DashboardPage, MissionsPage, CodePage];
-const components = [ChipComponent, ConnectionComponent, IconComponent, RobotCardComponent];
+const components = [
+  ChipComponent,
+  ConnectionComponent,
+  EditorComponent,
+  IconComponent,
+  MissionsHistoryComponent,
+  RobotCardComponent,
+];
 
 @NgModule({
-  declarations: [...pages, ...components, EditorComponent],
+  declarations: [...pages, ...components],
   imports: [
     BrowserAnimationsModule,
     BrowserModule,

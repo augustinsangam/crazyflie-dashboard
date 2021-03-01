@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MissionType } from 'src/app/models/mission';
 import { Robot } from 'src/app/models/robot';
 import { SocketService } from '../communication/socket.service';
 
@@ -67,10 +68,12 @@ export class RobotsService {
     });
   }
 
-  startNewMission(): void {
+  startNewMission(missionType: MissionType): void {
     this.socketService.sendMessage({
-      type: 'startMission',
-      data: null,
+      type: 'start_mission',
+      data: {
+        type: missionType
+      },
     });
   }
 }

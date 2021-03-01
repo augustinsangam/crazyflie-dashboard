@@ -18,14 +18,9 @@
               <p>Info: You can takeoff/land the robot using power button.</p>
               <ngx-simplebar [options]="options">
                 <div class="robots-cards">
-                  <robot-card-component
-                    [data]="robot"
-                    *ngFor="let robot of robotService.robots"
-                    (land)="onLandRobot(robot)"
-                    (takeOff)="onTakeOffRobot(robot)"
-                    (lighten)="onLightenRobot(robot)"
-                    (darken)="onDarkenRobot(robot)"
-                  ></robot-card-component>
+                  <robot-card-component [data]="robot" *ngFor="let robot of robotService.robots"
+                    (land)="onLandRobot(robot)" (takeOff)="onTakeOffRobot(robot)" (lighten)="onLightenRobot(robot)"
+                    (darken)="onDarkenRobot(robot)"></robot-card-component>
                 </div>
               </ngx-simplebar>
             </ng-container>
@@ -36,16 +31,23 @@
       <section class="missions-section">
         <div class="missions-title sticky-title stick">
           <h1>Missions</h1>
-          <button (click)="onStartMission()">
-            <icon-component iconName="add"></icon-component>
-            <span>New mission</span>
-          </button>
+          <ng-container *ngIf="!activeMission">
+            <select (change)="missionType = select.value" #select>
+              <option *ngFor="let option of missionsTypeOptions" [value]="option.value"
+                [attr.selected]="missionType == option.value">
+                {{option.label}}</option>
+            </select>
+            <button (click)="onStartMission()">
+              <icon-component iconName="add"></icon-component>
+              <span>Start new</span>
+            </button>
+          </ng-container>
         </div>
         <div class="missions">
           <h3 class="m-top">Active missions</h3>
-          <p>No active mission to display ...</p>
+          <missions-history [missions]="activeMission? [activeMission]:[]"></missions-history>
           <h3 class="m-top">Previous missions</h3>
-          <p>Coming soon in the CDR !!!!</p>
+          <missions-history [missions]="previousMissions"></missions-history>
         </div>
       </section>
     </div>
