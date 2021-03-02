@@ -15,7 +15,7 @@ import { RoutingModule } from './modules/routing.module';
 import { AboutPage } from './pages/about/about.component';
 import { CodePage } from './pages/code/code.page';
 import { DashboardPage } from './pages/dashboard/dashboard.page';
-import { MissionsPage } from './pages/missions/missions.component';
+import { MissionsPage } from './pages/missions/missions.page';
 
 const pages = [AboutPage, DashboardPage, MissionsPage, CodePage];
 const components = [

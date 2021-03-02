@@ -5,6 +5,7 @@ export interface Vec2 {
 
 export type MissionType = 'crazyradio' | 'argos' | 'fake';
 export type MissionStatus = 'requested' | 'in_progress' | 'failed' | 'done';
+
 export interface Mission {
   id: string;
   timestamp: number;

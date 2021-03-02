@@ -7,8 +7,8 @@ import { RobotsService } from 'src/app/services/robots/robots.service';
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'missions-page',
-  templateUrl: './missions.component.html',
-  styleUrls: ['./missions.component.scss'],
+  templateUrl: './missions.page.html',
+  styleUrls: ['./missions.page.scss'],
 })
 // eslint-disable-next-line @angular-eslint/component-class-suffix
 export class MissionsPage {
@@ -21,7 +21,7 @@ export class MissionsPage {
   previousMissions: Mission[] = [
     {
       id: 'mission-1',
-      timestamp: 0,
+      timestamp: Date.now()/1000 - 1,
       status: 'done',
       type: 'crazyradio',
       drones: [
@@ -34,12 +34,12 @@ export class MissionsPage {
         {droneName: 'real drone 2', value: {x: 0, y: 1}},
       ],
       shapes: [
-        [{x: -1, y: -1}, {x: -1, y: 1}, {x: 1, y: 1}, {x: 1, y: -1}]
+        [{x: -1, y: -1}, {x: -1, y: 1}, {x: 1, y: 1}]
       ]
     },
     {
       id: 'mission-2',
-      timestamp: 0,
+      timestamp: Date.now()/1000 - 1,
       status: 'done',
       type: 'crazyradio',
       drones: [
@@ -52,7 +52,7 @@ export class MissionsPage {
         {droneName: 'real drone 2', value: {x: 0, y: 1}},
       ],
       shapes: [
-        [{x: -1, y: -1}, {x: -1, y: 1}, {x: 1, y: 1}, {x: 1, y: -1}]
+        [{x: -1, y: -1}, {x: -1, y: 1}, {x: 1, y: 1}, {x: 1, y: -1}, {x: -1, y: -1}]
       ]
     }
   ];
@@ -83,6 +83,21 @@ export class MissionsPage {
   }
 
   onStartMission(): void {
-    this.robotService.startNewMission(this.missionType);
+    try {
+      this.robotService.startNewMission(this.missionType);
+    } catch (error) {
+      console.log(error);
+      return ;
+    }
+    this.activeMission = {
+      id: 'unknown',
+      timestamp: Date.now()/1000 - 1,
+      status: 'requested',
+      type: this.missionType,
+      drones: [],
+      points: [],
+      shapes: []
+    };
   }
+
 }

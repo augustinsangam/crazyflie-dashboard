@@ -2,6 +2,7 @@ table {
 
   border-collapse: collapse;
   width: 100%;
+  table-layout: fixed;
 
   td,
   th {
@@ -9,15 +10,11 @@ table {
     padding: 8px;
   }
 
-  tr:hover {
-    background-color: rgba($color: (#202125), $alpha: 0.4);
-  }
-
   th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: #202125;
+    background-color: #4a4b52;
     color: white;
   }
 
@@ -35,18 +32,26 @@ table {
     flex-direction: column;
   }
 
-  .pointer {
-    cursor: pointer;
-  }
-
   .drone-list {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin: 0.5rem -0.5rem;
 
     > * {
       margin: 0 0.5rem;
     }
+  }
+
+  svg {
+    width: min(50vh, 50vw);
+    height: min(50vh, 50vw);
+    margin: 1rem;
+    border: 1px dashed #4a4b52;
+  }
+
+  chip-component {
+    display: inline-block;
   }
 
 }
