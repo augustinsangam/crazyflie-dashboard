@@ -125,6 +125,8 @@ export class MissionsHistoryComponent implements OnChanges, AfterViewInit {
         return { blinking: true, color: 'green', label: 'In progress' };
       case 'requested':
         return { blinking: true, color: 'skyblue', label: 'Requested' };
+      case 'rejected':
+        return { blinking: false, color: 'red', label: 'Rejected' };
     }
   }
 
@@ -151,7 +153,7 @@ export class MissionsHistoryComponent implements OnChanges, AfterViewInit {
   }
 
   onExpand(mission: ModifiedMission, tableRow: HTMLElement): void {
-    if (mission.status.label === 'Requested') {
+    if (['Requested', 'Rejected'].includes(mission.status.label)) {
       return ;
     }
     if (this.latestExpandedMission && this.latestExpandedMission.id === mission.id) {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ApplicationRef, Component } from '@angular/core';
 import { Options } from 'simplebar';
 import { Mission, MissionType } from 'src/app/models/mission';
 import { Robot } from 'src/app/models/robot';
@@ -64,7 +64,7 @@ export class MissionsPage {
     { value: 'fake', label: 'Fake mission' },
   ];
 
-  constructor(public readonly robotService: RobotsService) {}
+  constructor(public readonly robotService: RobotsService, private readonly appRef: ApplicationRef) {}
 
   onLandRobot(robot: Robot): void {
     this.robotService.landRobot(robot.name);
@@ -87,10 +87,10 @@ export class MissionsPage {
       this.robotService.startNewMission(this.missionType);
     } catch (error) {
       console.log(error);
-      return ;
+      // return ;
     }
     this.activeMission = {
-      id: 'unknown',
+      id: 'Unknown yet',
       timestamp: Date.now()/1000 - 1,
       status: 'requested',
       type: this.missionType,
@@ -98,6 +98,12 @@ export class MissionsPage {
       points: [],
       shapes: []
     };
+    setTimeout(() => {
+      if (this.activeMission.status === 'requested') {
+        this.activeMission = {...this.activeMission, status: 'rejected'};
+        setTimeout(() => {this.activeMission = undefined;}, 5000);
+      }
+    }, 3000);
   }
 
 }

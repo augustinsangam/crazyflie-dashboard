@@ -19,7 +19,7 @@
           [showIndicator]="mission.status.blinking"
           >{{ mission.status.label }}
           </chip-component></td>
-        <td class="unfold-more" [style.cursor]="mission.status.label === 'Requested' ? 'not-allowed':'pointer'" [attr.rowspan]="mission.isExpanded ? 2 : 1" (click)="onExpand(mission, tableRow)">
+        <td class="unfold-more" [style.cursor]="['Requested', 'Rejected'].includes(mission.status.label)  ? 'not-allowed':'pointer'" [attr.rowspan]="mission.isExpanded ? 2 : 1" (click)="onExpand(mission, tableRow)">
           <div class="center">
             <icon-component iconName="unfold_more"></icon-component>
           </div>
