@@ -2,16 +2,16 @@
 <ng-container *ngIf="missionsModified && missionsModified.length">
   <table>
     <tr>
-      <th>Date</th>
       <th>Id</th>
+      <th>Date</th>
       <th>Type</th>
       <th>Status</th>
       <th class="unfold-more"></th>
     </tr>
     <ng-container *ngFor="let mission of missionsModified">
       <tr #tableRow>
-        <td>{{ mission.date }}</td>
         <td>{{ mission.id }}</td>
+        <td>{{ mission.date }}</td>
         <td>{{ mission.type }}</td>
         <td><chip-component
           [blinking]="mission.status.blinking"
@@ -41,7 +41,9 @@
             <div>Below is the map generated during the exploration</div>
             <svg viewBox="-2 -2 4 4">
               <path *ngFor="let shape of mission.shapes" [attr.d]="shape.dPath" stroke="#80808030" [attr.fill]="shape.closed ? '#80808030':'none'" stroke-width="0.02"/>
-              <circle *ngFor="let point of mission.points" [attr.fill]="point.color" [attr.cx]="point.value.x" [attr.cy]="point.value.y" r="0.03"/>
+              <circle *ngFor="let point of mission.points" [attr.fill]="point.color" [attr.cx]="point.value.x" [attr.cy]="point.value.y" r="0.02"/>
+              <path *ngFor="let dronePath of mission.dronesPaths" [attr.d]="dronePath.dPath" [attr.stroke]="dronePath.color" stroke-width="0.02" stroke-opacity="0.15" fill-opacity="0" stroke-linejoin="round"/>
+              <use *ngFor="let dronePosition of mission.dronesPositions" xlink:href="/assets/symbols.svg#drone" [attr.x]="dronePosition.pos.x - 0.1" [attr.y]="dronePosition.pos.y - 0.1" width="0.20" height="0.20" [attr.fill]="dronePosition.color"/>
             </svg>
           </div>
         </td>

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
+import { Mission, MissionPulse } from 'src/app/models/mission';
 import { Robot } from 'src/app/models/robot';
 import { environment as env } from 'src/environments/environment';
 
@@ -11,6 +12,8 @@ export class SocketService {
   socket: WebSocket;
   robotsPulses = new ReplaySubject<Robot>();
   robotsDisconnected = new ReplaySubject<string>();
+  mission = new ReplaySubject<Mission>();
+  missionPulse = new ReplaySubject<MissionPulse>();
 
   constructor() {
     // this.open();
@@ -53,6 +56,12 @@ export class SocketService {
         break;
       case 'pulse':
         this.robotsDisconnected.next(message.data.name);
+        break;
+      case 'mission':
+        this.mission.next(message.data);
+        break;
+      case 'missionPulse':
+        this.missionPulse.next(message.data);
         break;
       default:
         throw new Error(`Unrecognized command ${message.type}`);

@@ -31,7 +31,7 @@
       <section class="missions-section">
         <div class="missions-title sticky-title stick">
           <h1>Missions</h1>
-          <ng-container *ngIf="!activeMission">
+          <ng-container *ngIf="!missionsService.activeMission">
             <select (change)="missionType = select.value" #select>
               <option *ngFor="let option of missionsTypeOptions" [value]="option.value"
                 [attr.selected]="missionType == option.value">
@@ -45,9 +45,9 @@
         </div>
         <div class="missions">
           <h3 class="m-top">Active missions</h3>
-          <missions-history [missions]="activeMission? [activeMission]:[]"></missions-history>
+          <missions-history [missions]="missionsService.activeMission? [missionsService.activeMission]:[]"></missions-history>
           <h3 class="m-top">Previous missions</h3>
-          <missions-history [missions]="previousMissions"></missions-history>
+          <missions-history [missions]="missionsService.previousMissions"></missions-history>
         </div>
       </section>
     </div>

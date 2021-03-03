@@ -1,7 +1,8 @@
-import { ApplicationRef, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { Options } from 'simplebar';
-import { Mission, MissionType } from 'src/app/models/mission';
+import { MissionType } from 'src/app/models/mission';
 import { Robot } from 'src/app/models/robot';
+import { MissionsService } from 'src/app/services/missions/missions.service';
 import { RobotsService } from 'src/app/services/robots/robots.service';
 
 @Component({
@@ -17,46 +18,6 @@ export class MissionsPage {
     scrollbarMinSize: 100,
   };
 
-  activeMission: Mission;
-  previousMissions: Mission[] = [
-    {
-      id: 'mission-1',
-      timestamp: Date.now()/1000 - 1,
-      status: 'done',
-      type: 'crazyradio',
-      drones: [
-        {color: 'skyblue', name: 'real drone 1'},
-        {color: 'purple', name: 'real drone 2'}
-      ],
-      points: [
-        {droneName: 'real drone 1', value: {x: -1, y: 0}},
-        {droneName: 'real drone 2', value: {x: -1, y: 1}},
-        {droneName: 'real drone 2', value: {x: 0, y: 1}},
-      ],
-      shapes: [
-        [{x: -1, y: -1}, {x: -1, y: 1}, {x: 1, y: 1}]
-      ]
-    },
-    {
-      id: 'mission-2',
-      timestamp: Date.now()/1000 - 1,
-      status: 'done',
-      type: 'crazyradio',
-      drones: [
-        {color: 'skyblue', name: 'real drone 1'},
-        {color: 'purple', name: 'real drone 2'}
-      ],
-      points: [
-        {droneName: 'real drone 1', value: {x: -1, y: 0}},
-        {droneName: 'real drone 2', value: {x: -1, y: 1}},
-        {droneName: 'real drone 2', value: {x: 0, y: 1}},
-      ],
-      shapes: [
-        [{x: -1, y: -1}, {x: -1, y: 1}, {x: 1, y: 1}, {x: 1, y: -1}, {x: -1, y: -1}]
-      ]
-    }
-  ];
-
   missionType: MissionType = 'fake';
   missionsTypeOptions = [
     { value: 'argos', label: 'ARGoS based mission' },
@@ -64,7 +25,10 @@ export class MissionsPage {
     { value: 'fake', label: 'Fake mission' },
   ];
 
-  constructor(public readonly robotService: RobotsService, private readonly appRef: ApplicationRef) {}
+  constructor(
+    public readonly robotService: RobotsService,
+    public readonly missionsService: MissionsService
+  ) {}
 
   onLandRobot(robot: Robot): void {
     this.robotService.landRobot(robot.name);
@@ -83,27 +47,6 @@ export class MissionsPage {
   }
 
   onStartMission(): void {
-    try {
-      this.robotService.startNewMission(this.missionType);
-    } catch (error) {
-      console.log(error);
-      // return ;
-    }
-    this.activeMission = {
-      id: 'Unknown yet',
-      timestamp: Date.now()/1000 - 1,
-      status: 'requested',
-      type: this.missionType,
-      drones: [],
-      points: [],
-      shapes: []
-    };
-    setTimeout(() => {
-      if (this.activeMission.status === 'requested') {
-        this.activeMission = {...this.activeMission, status: 'rejected'};
-        setTimeout(() => {this.activeMission = undefined;}, 5000);
-      }
-    }, 3000);
+    this.missionsService.startNewMission(this.missionType);
   }
-
 }

@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
 import { relativeTime } from 'human-date';
 import { Mission, Vec2 } from 'src/app/models/mission';
 
@@ -8,9 +14,19 @@ interface ModifiedMissionStatus {
   color: string;
 }
 
-interface ModifiedMissionPoints {
+interface ModifiedMissionDrone {
+  name: string;
   color: string;
-  value: Vec2;
+}
+
+interface ModifiedMissionDronePosition {
+  color: string;
+  pos: Vec2;
+}
+
+interface ModifiedMissionDronePath {
+  color: string;
+  dPath: string;
 }
 
 interface ModifiedMissionShape {
@@ -18,15 +34,19 @@ interface ModifiedMissionShape {
   closed: boolean;
 }
 
+interface ModifiedMissionPoints {
+  color: string;
+  value: Vec2;
+}
+
 interface ModifiedMission {
   id: string;
   date: string;
   type: string;
   status: ModifiedMissionStatus;
-  drones: {
-    name: string;
-    color: string;
-  }[];
+  drones: ModifiedMissionDrone[];
+  dronesPositions: ModifiedMissionDronePosition[];
+  dronesPaths: ModifiedMissionDronePath[];
   shapes: ModifiedMissionShape[];
   points: ModifiedMissionPoints[];
   isExpanded: boolean;
@@ -56,9 +76,9 @@ export class MissionsHistoryComponent implements OnChanges, AfterViewInit {
     }
     const newMissionsModified: ModifiedMission[] = [];
     for (const mission of changes.missions.currentValue as Mission[]) {
-      const colorMap = new Map(mission.drones.map((d) => [d.name, d.color]));
-      const previousMission = ((changes.missions
-        .previousValue as Mission[]) || []).find((m) => m.id === mission.id);
+      const previousMission = (
+        (changes.missions.previousValue as Mission[]) || []
+      ).find((m) => m.id === mission.id);
       const previousModifiedMission = this.missionsModified.find(
         (m) => m.id === mission.id
       );
@@ -68,9 +88,11 @@ export class MissionsHistoryComponent implements OnChanges, AfterViewInit {
           date: relativeTime(new Date(mission.timestamp * 1000)),
           type: this.getMissionType(mission),
           status: this.getMissionStatus(mission),
-          drones: mission.drones,
+          drones: this.getMissionDrones(mission),
+          dronesPositions: this.getMissionDronesPositions(mission),
+          dronesPaths: this.getMissionDronesPaths(mission),
           shapes: this.getMissionShapes(mission),
-          points: this.getMissionPoints(mission, colorMap),
+          points: this.getMissionPoints(mission),
           isExpanded: this.expandByDefault,
         };
         newMissionsModified.push(modifiedMission);
@@ -88,13 +110,19 @@ export class MissionsHistoryComponent implements OnChanges, AfterViewInit {
             ? this.getMissionStatus(mission)
             : previousModifiedMission.status,
           drones: attrChanged('drones')
-            ? mission.drones
+            ? this.getMissionDrones(mission)
             : previousModifiedMission.drones,
+          dronesPositions: attrChanged('dronesPositions')
+            ? this.getMissionDronesPositions(mission)
+            : previousModifiedMission.dronesPositions,
+          dronesPaths: attrChanged('dronesPaths')
+            ? this.getMissionDronesPaths(mission)
+            : previousModifiedMission.dronesPaths,
           shapes: attrChanged('shapes')
             ? this.getMissionShapes(mission)
             : previousModifiedMission.shapes,
           points: attrChanged('points')
-            ? this.getMissionPoints(mission, colorMap)
+            ? this.getMissionPoints(mission)
             : previousModifiedMission.points,
           isExpanded: previousModifiedMission.isExpanded,
         };
@@ -121,7 +149,7 @@ export class MissionsHistoryComponent implements OnChanges, AfterViewInit {
         return { blinking: false, color: 'green', label: 'Done' };
       case 'failed':
         return { blinking: false, color: 'red', label: 'Failed' };
-      case 'in_progress':
+      case 'inProgress':
         return { blinking: true, color: 'green', label: 'In progress' };
       case 'requested':
         return { blinking: true, color: 'skyblue', label: 'Requested' };
@@ -130,36 +158,79 @@ export class MissionsHistoryComponent implements OnChanges, AfterViewInit {
     }
   }
 
+  getMissionDrones(mission: Mission): ModifiedMissionDrone[] {
+    const result: ModifiedMissionDrone[] = [];
+    for (const key in mission.drones) {
+      if (Object.prototype.hasOwnProperty.call(mission.drones, key)) {
+        result.push({ name: key, color: mission.drones[key] });
+      }
+    }
+    return result;
+  }
+
+  getMissionDronesPositions(mission: Mission): ModifiedMissionDronePosition[] {
+    const result: ModifiedMissionDronePosition[] = [];
+    for (const key in mission.dronesPositions) {
+      if (Object.prototype.hasOwnProperty.call(mission.dronesPositions, key)) {
+        result.push({
+          color: mission.drones[key],
+          pos: mission.dronesPositions[key],
+        });
+      }
+    }
+    return result;
+  }
+
+  getMissionDronesPaths(mission: Mission): ModifiedMissionDronePath[] {
+    const result: ModifiedMissionDronePath[] = [];
+    for (const key in mission.dronesPaths) {
+      if (Object.prototype.hasOwnProperty.call(mission.dronesPaths, key)) {
+        result.push({
+          color: mission.drones[key],
+          dPath: this.getDPath(mission.dronesPaths[key]),
+        });
+      }
+    }
+    return result;
+  }
+
   getMissionShapes(mission: Mission): ModifiedMissionShape[] {
+    const isClosed = (shape: Vec2[]) =>
+      shape[0].x === shape[shape.length - 1].x &&
+      shape[0].y === shape[shape.length - 1].y;
+    return mission.shapes.map((s) => ({
+      dPath: this.getDPath(s),
+      closed: isClosed(s),
+    }));
+  }
+
+  getDPath(path: Vec2[]): string {
     const stringifyShape = (shapes: Vec2[]): string =>
       shapes.reduce(
         (acc: string, cur: Vec2) => `${acc} L${cur.x} ${cur.y}`,
         ''
       );
-    const isClosed = (shape: Vec2[]) => shape[0].x === shape[shape.length - 1].x && shape[0].y === shape[shape.length - 1].y;
-    return mission.shapes.map(
-      (s) => ({dPath: `M${s[0].x} ${s[0].y}${stringifyShape(s.slice(1))}`, closed: isClosed(s)})
-    );
+    return `M${path[0].x} ${path[0].y}${stringifyShape(path.slice(1))}`;
   }
 
-  getMissionPoints(
-    mission: Mission,
-    colorMap: Map<string, string>
-  ): ModifiedMissionPoints[] {
+  getMissionPoints(mission: Mission): ModifiedMissionPoints[] {
     return mission.points.map((p) => ({
       value: p.value,
-      color: colorMap.get(p.droneName) as string,
+      color: mission.drones[p.droneName],
     }));
   }
 
   onExpand(mission: ModifiedMission, tableRow: HTMLElement): void {
     if (['Requested', 'Rejected'].includes(mission.status.label)) {
-      return ;
+      return;
     }
-    if (this.latestExpandedMission && this.latestExpandedMission.id === mission.id) {
+    if (
+      this.latestExpandedMission &&
+      this.latestExpandedMission.id === mission.id
+    ) {
       mission.isExpanded = !mission.isExpanded;
       this.latestExpandedMission = mission;
-      return ;
+      return;
     }
     if (this.latestExpandedMission) {
       this.latestExpandedMission.isExpanded = false;
@@ -169,8 +240,8 @@ export class MissionsHistoryComponent implements OnChanges, AfterViewInit {
   }
 
   updateAllDates(): void {
-    for(const modifiedMission of this.missionsModified) {
-      const mission = this.missions.find(m => m.id === modifiedMission.id);
+    for (const modifiedMission of this.missionsModified) {
+      const mission = this.missions.find((m) => m.id === modifiedMission.id);
       modifiedMission.date = relativeTime(new Date(mission.timestamp * 1000));
     }
   }
