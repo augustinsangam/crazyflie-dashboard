@@ -98,8 +98,7 @@ export class MissionsHistoryComponent implements OnChanges, AfterViewInit {
         newMissionsModified.push(modifiedMission);
       } else {
         const attrChanged = (attrName: string) =>
-          JSON.stringify(previousMission[attrName]) !==
-          JSON.stringify(mission[attrName]);
+          previousMission[attrName] !== mission[attrName];
         const modifiedMission: ModifiedMission = {
           id: mission.id,
           date: relativeTime(new Date(mission.timestamp * 1000)),
@@ -127,6 +126,7 @@ export class MissionsHistoryComponent implements OnChanges, AfterViewInit {
           isExpanded: previousModifiedMission.isExpanded,
         };
         newMissionsModified.push(modifiedMission);
+        console.log(attrChanged('dronesPaths'), );
       }
     }
     this.missionsModified = newMissionsModified;
@@ -196,6 +196,7 @@ export class MissionsHistoryComponent implements OnChanges, AfterViewInit {
 
   getMissionShapes(mission: Mission): ModifiedMissionShape[] {
     const isClosed = (shape: Vec2[]) =>
+      shape.length > 2 &&
       shape[0].x === shape[shape.length - 1].x &&
       shape[0].y === shape[shape.length - 1].y;
     return mission.shapes.map((s) => ({
@@ -205,6 +206,9 @@ export class MissionsHistoryComponent implements OnChanges, AfterViewInit {
   }
 
   getDPath(path: Vec2[]): string {
+    if (path.length < 2) {
+      return '';
+    }
     const stringifyShape = (shapes: Vec2[]): string =>
       shapes.reduce(
         (acc: string, cur: Vec2) => `${acc} L${cur.x} ${cur.y}`,

@@ -161,19 +161,27 @@ export class MissionsService {
     } else {
       activeMission = {...this.activeMission};
     }
-    if (mission.status && mission.status !== this.activeMission.status) {
+    if (Object.prototype.hasOwnProperty.call(mission, 'status')) {
       activeMission.status = mission.status;
     }
-    if (mission.dronesPositions && mission.dronesPositions !== this.activeMission.dronesPositions) {
-      activeMission.dronesPositions = mission.dronesPositions;
+    if (Object.prototype.hasOwnProperty.call(mission, 'dronesPositions')) {
+      activeMission.dronesPositions = {...activeMission.dronesPositions, ...mission.dronesPositions};
+      for (const droneName in mission.dronesPositions) {
+        if (Object.prototype.hasOwnProperty.call(mission.dronesPositions, droneName)) {
+          const pos = mission.dronesPositions[droneName];
+          activeMission.dronesPaths[droneName] = [...activeMission.dronesPaths[droneName], pos];
+        }
+      }
+      activeMission.dronesPaths = {...activeMission.dronesPaths};
     }
-    if (mission.shapes && mission.shapes !== this.activeMission.shapes) {
-      activeMission.shapes = {...activeMission.shapes, ...mission.shapes};
+    if (Object.prototype.hasOwnProperty.call(mission, 'shapes')) {
+      activeMission.shapes = [...activeMission.shapes, ...mission.shapes];
     }
-    if (mission.points && mission.points !== this.activeMission.points) {
+    if (Object.prototype.hasOwnProperty.call(mission, 'points')) {
       activeMission.points = [...activeMission.points, ...mission.points];
     }
     this.activeMission = activeMission;
+    console.log(this.activeMission);
   }
 
   startNewMission(missionType: MissionType): void {

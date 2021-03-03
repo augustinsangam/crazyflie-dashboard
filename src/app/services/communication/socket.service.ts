@@ -16,7 +16,7 @@ export class SocketService {
   missionPulse = new ReplaySubject<MissionPulse>();
 
   constructor() {
-    // this.open();
+    this.open();
   }
 
   sendMessage(message: { type: string; data: any }): void {

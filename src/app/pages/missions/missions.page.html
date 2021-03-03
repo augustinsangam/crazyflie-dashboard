@@ -18,9 +18,14 @@
               <p>Info: You can takeoff/land the robot using power button.</p>
               <ngx-simplebar [options]="options">
                 <div class="robots-cards">
-                  <robot-card-component [data]="robot" *ngFor="let robot of robotService.robots"
-                    (land)="onLandRobot(robot)" (takeOff)="onTakeOffRobot(robot)" (lighten)="onLightenRobot(robot)"
-                    (darken)="onDarkenRobot(robot)"></robot-card-component>
+                  <robot-card-component
+                    [data]="robot"
+                    *ngFor="let robot of robotService.robots"
+                    (land)="onLandRobot(robot)"
+                    (takeOff)="onTakeOffRobot(robot)"
+                    (lighten)="onLightenRobot(robot)"
+                    (darken)="onDarkenRobot(robot)"
+                  ></robot-card-component>
                 </div>
               </ngx-simplebar>
             </ng-container>
@@ -33,9 +38,13 @@
           <h1>Missions</h1>
           <ng-container *ngIf="!missionsService.activeMission">
             <select (change)="missionType = select.value" #select>
-              <option *ngFor="let option of missionsTypeOptions" [value]="option.value"
-                [attr.selected]="missionType == option.value">
-                {{option.label}}</option>
+              <option
+                *ngFor="let option of missionsTypeOptions"
+                [value]="option.value"
+                [attr.selected]="missionType == option.value"
+              >
+                {{option.label}}
+              </option>
             </select>
             <button (click)="onStartMission()">
               <icon-component iconName="add"></icon-component>
@@ -45,9 +54,14 @@
         </div>
         <div class="missions">
           <h3 class="m-top">Active missions</h3>
-          <missions-history [missions]="missionsService.activeMission? [missionsService.activeMission]:[]"></missions-history>
+          <missions-history
+            [missions]="missionsService.activeMission? [missionsService.activeMission]:[]"
+            [expandByDefault]="true"
+          ></missions-history>
           <h3 class="m-top">Previous missions</h3>
-          <missions-history [missions]="missionsService.previousMissions"></missions-history>
+          <missions-history
+            [missions]="missionsService.previousMissions"
+          ></missions-history>
         </div>
       </section>
     </div>

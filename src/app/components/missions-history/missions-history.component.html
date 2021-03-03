@@ -1,4 +1,6 @@
-<p *ngIf="!missionsModified || !missionsModified.length">No mission to display ...</p>
+<p *ngIf="!missionsModified || !missionsModified.length">
+  No mission to display ...
+</p>
 <ng-container *ngIf="missionsModified && missionsModified.length">
   <table>
     <tr>
@@ -13,13 +15,24 @@
         <td>{{ mission.id }}</td>
         <td>{{ mission.date }}</td>
         <td>{{ mission.type }}</td>
-        <td><chip-component
-          [blinking]="mission.status.blinking"
-          [color]="mission.status.color"
-          [showIndicator]="mission.status.blinking"
-          >{{ mission.status.label }}
-          </chip-component></td>
-        <td class="unfold-more" [style.cursor]="['Requested', 'Rejected'].includes(mission.status.label)  ? 'not-allowed':'pointer'" [attr.rowspan]="mission.isExpanded ? 2 : 1" (click)="onExpand(mission, tableRow)">
+        <td>
+          <chip-component
+            [blinking]="mission.status.blinking"
+            [color]="mission.status.color"
+            [showIndicator]="mission.status.blinking"
+            >{{ mission.status.label }}
+          </chip-component>
+        </td>
+        <td
+          class="unfold-more"
+          [style.cursor]="
+            ['Requested', 'Rejected'].includes(mission.status.label)
+              ? 'not-allowed'
+              : 'pointer'
+          "
+          [attr.rowspan]="mission.isExpanded ? 2 : 1"
+          (click)="onExpand(mission, tableRow)"
+        >
           <div class="center">
             <icon-component iconName="unfold_more"></icon-component>
           </div>
@@ -36,14 +49,42 @@
                 [color]="drone.color"
                 [showIndicator]="false"
                 >{{ drone.name }}
-                </chip-component>
+              </chip-component>
             </div>
             <div>Below is the map generated during the exploration</div>
             <svg viewBox="-2 -2 4 4">
-              <path *ngFor="let shape of mission.shapes" [attr.d]="shape.dPath" stroke="#80808030" [attr.fill]="shape.closed ? '#80808030':'none'" stroke-width="0.02"/>
-              <circle *ngFor="let point of mission.points" [attr.fill]="point.color" [attr.cx]="point.value.x" [attr.cy]="point.value.y" r="0.02"/>
-              <path *ngFor="let dronePath of mission.dronesPaths" [attr.d]="dronePath.dPath" [attr.stroke]="dronePath.color" stroke-width="0.02" stroke-opacity="0.15" fill-opacity="0" stroke-linejoin="round"/>
-              <use *ngFor="let dronePosition of mission.dronesPositions" xlink:href="/assets/symbols.svg#drone" [attr.x]="dronePosition.pos.x - 0.1" [attr.y]="dronePosition.pos.y - 0.1" width="0.20" height="0.20" [attr.fill]="dronePosition.color"/>
+              <path
+                *ngFor="let shape of mission.shapes"
+                [attr.d]="shape.dPath"
+                stroke="#80808030"
+                [attr.fill]="shape.closed ? '#80808030' : 'none'"
+                stroke-width="0.02"
+              />
+              <circle
+                *ngFor="let point of mission.points"
+                [attr.fill]="point.color"
+                [attr.cx]="point.value.x"
+                [attr.cy]="point.value.y"
+                r="0.02"
+              />
+              <path
+                *ngFor="let dronePath of mission.dronesPaths"
+                [attr.d]="dronePath.dPath"
+                [attr.stroke]="dronePath.color"
+                stroke-width="0.02"
+                stroke-opacity="0.15"
+                fill-opacity="0"
+                stroke-linejoin="round"
+              />
+              <use
+                *ngFor="let dronePosition of mission.dronesPositions"
+                xlink:href="/assets/symbols.svg#drone"
+                [attr.x]="(dronePosition.pos.x || -2) - 0.1"
+                [attr.y]="(dronePosition.pos.y || -2) - 0.1"
+                width="0.20"
+                height="0.20"
+                [attr.fill]="dronePosition.color"
+              />
             </svg>
           </div>
         </td>
