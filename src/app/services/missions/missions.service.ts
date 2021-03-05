@@ -7,129 +7,7 @@ import { SocketService } from '../communication/socket.service';
 })
 export class MissionsService {
   activeMission: Mission;
-  previousMissions: Mission[] = [
-    {
-      id: 'mission-1',
-      timestamp: Date.now() / 1000 - 1,
-      status: 'done',
-      type: 'crazyradio',
-      drones: {
-        'real drone 1': 'skyblue',
-        'real drone 2': 'yellow',
-      },
-      dronesPositions: {
-        'real drone 1': { x: -1.25, y: -1.5 },
-        'real drone 2': { x: 1.5, y: 1.25 },
-      },
-      dronesPaths: {
-        'real drone 1': [
-          { x: -1.25, y: -1.5 },
-          { x: -1.25, y: 0.75 },
-        ],
-        'real drone 2': [
-          { x: -1.0, y: 1.25 },
-          { x: 1.5, y: 1.25 },
-        ],
-      },
-      points: [
-        { droneName: 'real drone 1', value: { x: -1, y: -1 } },
-        { droneName: 'real drone 1', value: { x: -1, y: -0.75 } },
-        { droneName: 'real drone 1', value: { x: -1, y: -0.5 } },
-        { droneName: 'real drone 1', value: { x: -1, y: -0.25 } },
-        { droneName: 'real drone 1', value: { x: -1, y: 0 } },
-        { droneName: 'real drone 1', value: { x: -1, y: 0.25 } },
-        { droneName: 'real drone 1', value: { x: -1, y: 0.5 } },
-        { droneName: 'real drone 1', value: { x: -1, y: 0.75 } },
-        { droneName: 'real drone 2', value: { x: -1, y: 1 } },
-        { droneName: 'real drone 2', value: { x: -0.75, y: 1 } },
-        { droneName: 'real drone 2', value: { x: -0.5, y: 1 } },
-        { droneName: 'real drone 2', value: { x: -0.25, y: 1 } },
-        { droneName: 'real drone 2', value: { x: 0, y: 1 } },
-        { droneName: 'real drone 2', value: { x: 0.25, y: 1 } },
-        { droneName: 'real drone 2', value: { x: 0.5, y: 1 } },
-        { droneName: 'real drone 2', value: { x: 0.75, y: 1 } },
-        { droneName: 'real drone 2', value: { x: 1, y: 1 } },
-      ],
-      shapes: [
-        [
-          { x: -1, y: -1 },
-          { x: -1, y: 1 },
-          { x: 1, y: 1 },
-        ],
-      ],
-    },
-    {
-      id: 'mission-2',
-      timestamp: Date.now() / 1000 - 1,
-      status: 'done',
-      type: 'crazyradio',
-      drones: {
-        'real drone 1': 'skyblue',
-        'real drone 2': 'yellow',
-      },
-      dronesPositions: {
-        'real drone 1': { x: 1.05, y: -1.25 },
-        'real drone 2': { x: 1.25, y: -1.05 },
-      },
-      dronesPaths: {
-        'real drone 1': [
-          { x: -1.25, y: 1.2 },
-          { x: -1.25, y: -1.25 },
-          { x: 1.05, y: -1.25 },
-        ],
-        'real drone 2': [
-          { x: -1.2, y: 1.25 },
-          { x: 1.25, y: 1.25 },
-          { x: 1.25, y: -1.05 },
-        ],
-      },
-      points: [
-        { droneName: 'real drone 1', value: { x: -1, y: 1 } },
-        { droneName: 'real drone 1', value: { x: -1, y: 0.75 } },
-        { droneName: 'real drone 1', value: { x: -1, y: 0.5 } },
-        { droneName: 'real drone 1', value: { x: -1, y: 0.25 } },
-        { droneName: 'real drone 1', value: { x: -1, y: 0 } },
-        { droneName: 'real drone 1', value: { x: -1, y: -0.25 } },
-        { droneName: 'real drone 1', value: { x: -1, y: -0.5 } },
-        { droneName: 'real drone 1', value: { x: -1, y: -0.75 } },
-        { droneName: 'real drone 1', value: { x: -1, y: -1 } },
-        { droneName: 'real drone 1', value: { x: -0.75, y: -1 } },
-        { droneName: 'real drone 1', value: { x: -0.5, y: -1 } },
-        { droneName: 'real drone 1', value: { x: -0.25, y: -1 } },
-        { droneName: 'real drone 1', value: { x: 0, y: -1 } },
-        { droneName: 'real drone 1', value: { x: 0.25, y: -1 } },
-        { droneName: 'real drone 1', value: { x: 0.5, y: -1 } },
-        { droneName: 'real drone 1', value: { x: 0.75, y: -1 } },
-        { droneName: 'real drone 1', value: { x: 1, y: -1 } },
-        { droneName: 'real drone 2', value: { x: -1, y: 1 } },
-        { droneName: 'real drone 2', value: { x: -0.75, y: 1 } },
-        { droneName: 'real drone 2', value: { x: -0.5, y: 1 } },
-        { droneName: 'real drone 2', value: { x: -0.25, y: 1 } },
-        { droneName: 'real drone 2', value: { x: 0, y: 1 } },
-        { droneName: 'real drone 2', value: { x: 0.25, y: 1 } },
-        { droneName: 'real drone 2', value: { x: 0.5, y: 1 } },
-        { droneName: 'real drone 2', value: { x: 0.75, y: 1 } },
-        { droneName: 'real drone 2', value: { x: 1, y: 1 } },
-        { droneName: 'real drone 2', value: { x: 1, y: 0.75 } },
-        { droneName: 'real drone 2', value: { x: 1, y: 0.5 } },
-        { droneName: 'real drone 2', value: { x: 1, y: 0.25 } },
-        { droneName: 'real drone 2', value: { x: 1, y: 0 } },
-        { droneName: 'real drone 2', value: { x: 1, y: -0.25 } },
-        { droneName: 'real drone 2', value: { x: 1, y: -0.5 } },
-        { droneName: 'real drone 2', value: { x: 1, y: -0.75 } },
-        { droneName: 'real drone 2', value: { x: 1, y: 1 } },
-      ],
-      shapes: [
-        [
-          { x: -1, y: -1 },
-          { x: -1, y: 1 },
-          { x: 1, y: 1 },
-          { x: 1, y: -1 },
-          { x: -1, y: -1 },
-        ],
-      ],
-    },
-  ];
+  previousMissions: Mission[] = [];
 
   constructor(private readonly socketService: SocketService) {
     this.socketService.mission.subscribe((mission) => {
@@ -149,9 +27,12 @@ export class MissionsService {
     const indexOfRobot = this.previousMissions.findIndex((r) => r.id === mission.id);
     if (indexOfRobot === -1) {
       this.previousMissions.push(mission);
+      console.error(this.previousMissions.length)
       return ;
     }
+    console.error('la')
     Object.assign(this.previousMissions[indexOfRobot], mission);
+    this.previousMissions = [...this.previousMissions]
   }
 
   onReceivedMissionPulse(mission: MissionPulse): void {
