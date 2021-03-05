@@ -79,8 +79,8 @@
               <use
                 *ngFor="let dronePosition of mission.dronesPositions"
                 xlink:href="/assets/symbols.svg#drone"
-                [attr.x]="(dronePosition.pos.x || -2) - 0.1"
-                [attr.y]="(dronePosition.pos.y || -2) - 0.1"
+                [attr.x]="dronePosition.pos.x === 0 ? -0.1 : (dronePosition.pos.x || -2) - 0.1"
+                [attr.y]="dronePosition.pos.y === 0 ? -0.1 : (dronePosition.pos.y || -2) - 0.1"
                 width="0.20"
                 height="0.20"
                 [attr.fill]="dronePosition.color"
