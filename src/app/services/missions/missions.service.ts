@@ -8,6 +8,7 @@ import { SocketService } from '../communication/socket.service';
 export class MissionsService {
   activeMission: Mission;
   previousMissions: Mission[] = [];
+  timer: NodeJS.Timeout | undefined;
 
   constructor(private readonly socketService: SocketService) {
     this.socketService.mission.subscribe((mission) => {
@@ -22,38 +23,56 @@ export class MissionsService {
   onReceivedMission(mission: Mission): void {
     if (mission.status === 'inProgress') {
       this.activeMission = mission;
-      return ;
+      this.resetTimer();
+      return;
     }
-    const indexOfRobot = this.previousMissions.findIndex((r) => r.id === mission.id);
+    const indexOfRobot = this.previousMissions.findIndex(
+      (r) => r.id === mission.id
+    );
     if (indexOfRobot === -1) {
       this.previousMissions.push(mission);
-      console.error(this.previousMissions.length)
-      return ;
+      console.error(this.previousMissions.length);
+      return;
     }
-    console.error('la')
     Object.assign(this.previousMissions[indexOfRobot], mission);
-    this.previousMissions = [...this.previousMissions]
+    this.previousMissions = [...this.previousMissions];
   }
 
   onReceivedMissionPulse(mission: MissionPulse): void {
+    this.resetTimer();
     let activeMission: Mission;
     if (!this.activeMission || mission.id !== this.activeMission.id) {
       activeMission = this.getNewRandomMission('fake');
     } else {
-      activeMission = {...this.activeMission};
+      activeMission = { ...this.activeMission };
     }
     if (Object.prototype.hasOwnProperty.call(mission, 'status')) {
       activeMission.status = mission.status;
+      if (this.activeMission.status !== 'inProgress') {
+        this.previousMissions = [...this.previousMissions, this.activeMission];
+        this.activeMission = undefined;
+      }
     }
     if (Object.prototype.hasOwnProperty.call(mission, 'dronesPositions')) {
-      activeMission.dronesPositions = {...activeMission.dronesPositions, ...mission.dronesPositions};
+      activeMission.dronesPositions = {
+        ...activeMission.dronesPositions,
+        ...mission.dronesPositions,
+      };
       for (const droneName in mission.dronesPositions) {
-        if (Object.prototype.hasOwnProperty.call(mission.dronesPositions, droneName)) {
+        if (
+          Object.prototype.hasOwnProperty.call(
+            mission.dronesPositions,
+            droneName
+          )
+        ) {
           const pos = mission.dronesPositions[droneName];
-          activeMission.dronesPaths[droneName] = [...activeMission.dronesPaths[droneName], pos];
+          activeMission.dronesPaths[droneName] = [
+            ...activeMission.dronesPaths[droneName],
+            pos,
+          ];
         }
       }
-      activeMission.dronesPaths = {...activeMission.dronesPaths};
+      activeMission.dronesPaths = { ...activeMission.dronesPaths };
     }
     if (Object.prototype.hasOwnProperty.call(mission, 'shapes')) {
       activeMission.shapes = [...activeMission.shapes, ...mission.shapes];
@@ -62,7 +81,6 @@ export class MissionsService {
       activeMission.points = [...activeMission.points, ...mission.points];
     }
     this.activeMission = activeMission;
-    console.log(this.activeMission);
   }
 
   startNewMission(missionType: MissionType): void {
@@ -73,23 +91,40 @@ export class MissionsService {
           type: missionType,
         },
       });
-      return ;
+      return;
     } catch (error) {
       console.log(error);
     }
     this.activeMission = this.getNewRandomMission(missionType);
     setTimeout(() => {
-      if (this.activeMission.status === 'requested') {
-        this.activeMission = {...this.activeMission, status: 'rejected'};
-        setTimeout(() => {this.activeMission = undefined;}, 3000);
+      if (this.activeMission && this.activeMission.status === 'requested') {
+        this.activeMission = { ...this.activeMission, status: 'rejected' };
+        setTimeout(() => {
+          this.activeMission = undefined;
+        }, 3000);
       }
     }, 3000);
+  }
+
+  private resetTimer() {
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
+    this.timer = setInterval(() => {
+      if (this.activeMission) {
+        this.activeMission.status = 'failed';
+        this.previousMissions = [...this.previousMissions, this.activeMission];
+        this.activeMission = undefined;
+      } else {
+        clearInterval(this.timer);
+      }
+    }, 5000);
   }
 
   private getNewRandomMission(missionType: MissionType): Mission {
     return {
       id: 'Unknown yet',
-      timestamp: Date.now()/1000 - 1,
+      timestamp: Date.now() / 1000 - 1,
       status: 'requested',
       type: missionType,
       drones: {},

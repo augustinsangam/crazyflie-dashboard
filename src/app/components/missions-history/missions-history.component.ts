@@ -126,7 +126,6 @@ export class MissionsHistoryComponent implements OnChanges, AfterViewInit {
           isExpanded: previousModifiedMission.isExpanded,
         };
         newMissionsModified.push(modifiedMission);
-        console.log(attrChanged('dronesPaths'), );
       }
     }
     this.missionsModified = newMissionsModified;
