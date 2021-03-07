@@ -8,7 +8,7 @@ import { SocketService } from '../communication/socket.service';
 export class MissionsService {
   activeMission: Mission;
   previousMissions: Mission[] = [];
-  timer: NodeJS.Timeout | undefined;
+  timer: NodeJS.Timer | undefined;
 
   constructor(private readonly socketService: SocketService) {
     this.socketService.mission.subscribe((mission) => {
@@ -30,8 +30,7 @@ export class MissionsService {
       (r) => r.id === mission.id
     );
     if (indexOfRobot === -1) {
-      this.previousMissions.push(mission);
-      console.error(this.previousMissions.length);
+      this.previousMissions = [...this.previousMissions, mission];
       return;
     }
     Object.assign(this.previousMissions[indexOfRobot], mission);
@@ -48,10 +47,6 @@ export class MissionsService {
     }
     if (Object.prototype.hasOwnProperty.call(mission, 'status')) {
       activeMission.status = mission.status;
-      if (this.activeMission.status !== 'inProgress') {
-        this.previousMissions = [...this.previousMissions, this.activeMission];
-        this.activeMission = undefined;
-      }
     }
     if (Object.prototype.hasOwnProperty.call(mission, 'dronesPositions')) {
       activeMission.dronesPositions = {
@@ -80,7 +75,13 @@ export class MissionsService {
     if (Object.prototype.hasOwnProperty.call(mission, 'points')) {
       activeMission.points = [...activeMission.points, ...mission.points];
     }
-    this.activeMission = activeMission;
+
+    if (activeMission.status === 'done') {
+      this.previousMissions = [activeMission, ...this.previousMissions];
+      this.activeMission = undefined;
+    } else {
+      this.activeMission = activeMission;
+    }
   }
 
   startNewMission(missionType: MissionType): void {
@@ -109,14 +110,16 @@ export class MissionsService {
   private resetTimer() {
     if (this.timer) {
       clearInterval(this.timer);
+      this.timer = undefined;
     }
     this.timer = setInterval(() => {
       if (this.activeMission) {
-        this.activeMission.status = 'failed';
+        this.activeMission = { ...this.activeMission, status: 'failed'};
         this.previousMissions = [...this.previousMissions, this.activeMission];
         this.activeMission = undefined;
       } else {
         clearInterval(this.timer);
+        this.timer = undefined;
       }
     }, 5000);
   }
