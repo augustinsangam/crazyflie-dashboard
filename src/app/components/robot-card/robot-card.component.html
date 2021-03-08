@@ -92,10 +92,10 @@
         </div>
       </div>
     </div>
-    <div class="robot-card-description-row">
+    <div class="robot-card-description-row" *ngIf="data.multiRange">
       <div class="icon-and-value">
         <icon-component iconName="sensors"></icon-component>
-        <div class="value text-success sensors" *ngIf="data.multiRange">
+        <div class="value text-success sensors">
           <span
             >F:
             <span class="text-success">{{
