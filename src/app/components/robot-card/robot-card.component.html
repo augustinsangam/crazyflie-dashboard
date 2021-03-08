@@ -55,43 +55,81 @@
         <span>Battery</span>
       </div>
       <div class="value text-success" *ngIf="data.battery && data.battery > 30">
-        {{ (data.battery).toFixed(1) }} %
+        {{ data.battery.toFixed(1) }} %
       </div>
-      <div class="value text-error" *ngIf="(data.battery && data.battery <= 30) || data.battery === 0">
-        {{ (data.battery).toFixed(1) }} %
+      <div
+        class="value text-error"
+        *ngIf="(data.battery && data.battery <= 30) || data.battery === 0"
+      >
+        {{ data.battery.toFixed(1) }} %
       </div>
-      <div class="value text-error" *ngIf="!data.battery && data.battery !== 0">N/A</div>
+      <div class="value text-error" *ngIf="!data.battery && data.battery !== 0">
+        N/A
+      </div>
     </div>
     <div class="robot-card-description-row">
       <div class="icon-and-value">
         <icon-component iconName="near_me"></icon-component>
-        <div class="value text-success position" *ngIf="data.position">
+        <div class="value text-success position">
           <span
-            >x:
+            >X:
             <span class="text-success">{{
               data.position[0].toFixed(2)
             }}</span></span
           >
           <span
-            >y:
+            >Y:
             <span class="text-success">{{
               data.position[1].toFixed(2)
             }}</span></span
           >
           <span
-            >z:
+            >Z:
             <span class="text-success">{{
-              data.position[1].toFixed(2)
+              data.position[2].toFixed(2)
             }}</span></span
           >
         </div>
-        <div class="value text-error position" *ngIf="!data.position">
-          <span>x: <span class="text-error">N/A</span></span>
-          <span>y: <span class="text-error">N/A</span></span>
-          <span>z: <span class="text-error">N/A</span></span>
+      </div>
+    </div>
+    <div class="robot-card-description-row">
+      <div class="icon-and-value">
+        <icon-component iconName="sensors"></icon-component>
+        <div class="value text-success sensors" *ngIf="data.multiRange">
+          <span
+            >F:
+            <span class="text-success">{{
+              data.multiRange[0].toFixed(2)
+            }}</span></span
+          >
+          <span
+            >L:
+            <span class="text-success">{{
+              data.multiRange[1].toFixed(2)
+            }}</span></span
+          >
+          <span
+            >B:
+            <span class="text-success">{{
+              data.multiRange[2].toFixed(2)
+            }}</span></span
+          >
+          <span
+            >R:
+            <span class="text-success">{{
+              data.multiRange[3].toFixed(2)
+            }}</span></span
+          >
+          <span
+            >U:
+            <span class="text-success">{{
+              data.multiRange[4].toFixed(2)
+            }}</span></span
+          >
         </div>
       </div>
     </div>
+
     <div class="robot-card-description-row">
       <div class="icon-and-text">
         <icon-component iconName="update"></icon-component>
