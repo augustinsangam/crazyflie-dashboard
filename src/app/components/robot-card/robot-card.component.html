@@ -4,20 +4,34 @@
       <div
         class="util-button"
         tabindex="0"
-        [attr.title]="
-          data.flying
-            ? 'Drone is flying. Click to make it land.'
-            : 'Drone is not flying. Click to make it fly.'
-        "
-        (click)="onPowerClick()"
-        *ngIf="!data.real"
+        title="Drone is flying. Click to make it land."
+        (click)="onLand()"
       >
-        <icon-component
-          [iconName]="data.flying ? 'flight_takeoff' : 'flight_land'"
-          [class.power-on]="data.flying"
+        <icon-component class="power-on"
+          iconName="flight_land"
         ></icon-component>
       </div>
       <div
+        class="util-button"
+        tabindex="0"
+        title="Drone is not flying. Click to make it fly."
+        (click)="onTakeOff()"
+      >
+        <icon-component
+          iconName="flight_takeoff"
+        ></icon-component>
+      </div>
+      <div
+        class="util-button"
+        tabindex="0"
+        title="Click to make the drone return to base."
+        (click)="onReturnToBase()"
+      >
+        <icon-component
+          iconName="settings_input_antenna" class="antenna"
+        ></icon-component>
+      </div>
+      <!-- <div
         class="util-button"
         tabindex="0"
         [attr.title]="
@@ -26,13 +40,12 @@
             : 'Light are off. Click to make turn on.'
         "
         (click)="onLedClick()"
-        *ngIf="data.real"
       >
         <icon-component
           iconName="lightbulb"
           [class.power-on]="data.ledOn"
         ></icon-component>
-      </div>
+      </div> -->
     </div>
 
     <img src="/assets/crazyfly.png" alt="" srcset="" />

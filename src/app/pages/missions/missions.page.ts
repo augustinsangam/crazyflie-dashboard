@@ -46,6 +46,10 @@ export class MissionsPage {
     this.robotService.darkenRobot(robot.name);
   }
 
+  onReturnToBaseRobot(robot: Robot): void {
+    this.robotService.returnToBaseRobot(robot.name);
+  }
+
   onStartMission(): void {
     this.missionsService.startNewMission(this.missionType);
   }

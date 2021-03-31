@@ -14,9 +14,9 @@
 }
 
 .connection-component-wrapper {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0rem;
+  // position: -webkit-sticky;
+  // position: sticky;
+  // top: 0rem;
   background-color: #16171b;
   z-index: 1000;
   padding: 2rem 5rem 0 5rem;
@@ -119,7 +119,7 @@ section.missions-section {
 }
 
 .stick {
-  top: 7rem;
+  top: 0rem;
   position: -webkit-sticky;
   position: sticky;
   background-color: #16171b;

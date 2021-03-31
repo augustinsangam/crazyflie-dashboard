@@ -21,6 +21,7 @@ export class RobotCardComponent implements OnChanges, OnInit {
   @Output() takeOff = new EventEmitter<null>();
   @Output() lighten = new EventEmitter<null>();
   @Output() darken = new EventEmitter<null>();
+  @Output() returnToBase = new EventEmitter<null>();
   humanizedDate = 'now';
 
   ngOnInit(): void {
@@ -33,12 +34,16 @@ export class RobotCardComponent implements OnChanges, OnInit {
     }
   }
 
-  onPowerClick(): void {
-    if (this.data.flying) {
-      this.land.emit(null);
-    } else {
-      this.takeOff.emit(null);
-    }
+  onLand(): void {
+    this.land.emit(null);
+  }
+
+  onTakeOff(): void {
+    this.takeOff.emit(null);
+  }
+
+  onReturnToBase(): void {
+    this.returnToBase.emit(null);
   }
 
   onLedClick(): void {

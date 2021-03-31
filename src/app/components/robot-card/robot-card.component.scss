@@ -44,6 +44,12 @@
       }
     }
 
+    icon-component.antenna {
+      ::ng-deep svg {
+        fill: #87ceeb !important;
+      }
+    }
+
     img {
       height: 100%;
     }

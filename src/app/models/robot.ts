@@ -16,7 +16,8 @@ export const DEFAULT_ROBOT: Robot = {
   speed: 0,
   battery: 50,
   position: [0, 0, 0],
+  multiRange: [0, 0, 0, 0, 0],
   flying: false,
   ledOn: false,
-  real: false
+  real: false,
 };

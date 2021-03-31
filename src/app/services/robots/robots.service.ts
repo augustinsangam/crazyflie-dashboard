@@ -67,4 +67,13 @@ export class RobotsService {
     });
   }
 
+  returnToBaseRobot(robotName: string): void {
+    this.socketService.sendMessage({
+      type: 'returnToBase',
+      data: {
+        name: robotName,
+      },
+    });
+  }
+
 }
