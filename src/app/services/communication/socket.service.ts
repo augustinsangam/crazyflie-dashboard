@@ -18,7 +18,7 @@ export class SocketService {
   loadProjectLog = new ReplaySubject<ServerLog>();
 
   constructor() {
-    // this.open();
+    this.open();
   }
 
   sendMessage(message: { type: string; data: any }): void {
