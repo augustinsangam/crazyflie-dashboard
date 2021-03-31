@@ -17,14 +17,14 @@
             </option>
           </select>
           <button class="button-success big" (click)="send()">
-            Compile and Send to drones
+            Compile and flash drones
           </button>
         </div>
         <div
           class="sticky-title stick"
           [class.hidden]="projectType !== 'sandbox'"
         >
-          <h1>Code playground</h1>
+          <h1>Code playground (C++)</h1>
         </div>
         <div
           class="editor-container"
@@ -45,7 +45,8 @@
         <p *ngIf="service.logs.length === 0">No logs to display for now</p>
         <ng-container *ngFor="let log of service.logs">
           <div class="log" [ngClass]="'text-'+log.type">
-            {{log.date}} <br> {{log.message}}
+            {{log.date}} <br />
+            {{log.message}}
           </div>
         </ng-container>
       </section>

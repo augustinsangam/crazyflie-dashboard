@@ -3,14 +3,32 @@ import { Options } from 'simplebar';
 import { ProjectType } from 'src/app/models/software-update';
 import { SoftwareUpdateService } from 'src/app/services/software-update/software-update.service';
 
-const startingCode = `#include <iostream>
+const startingCode = `
+#define DEBUG_MODULE "SANDBOX_PROJECT"
 
-using namespace std;
+// FreeRTOS imports
+extern "C" {
+#include <FreeRTOS.h>
+#include <app.h> /* appMain */
+#include <debug.h> /* DEBUG_PRINT */
+}
 
-int main() {
-  cout << "Hello World!";
-  return 0;
-}`;
+// Crazyflie Firmware imports
+extern "C" {
+#include <led.h>
+#include <task.h> /* vTaskDelay */
+}
+
+void appMain() {
+	while (true) {
+		DEBUG_PRINT("Setting all leds\\n");
+		ledSetAll();
+		vTaskDelay(M2T(1000));
+		DEBUG_PRINT("Clearing all leds\\n");
+		ledClearAll();
+	}
+}
+`;
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
