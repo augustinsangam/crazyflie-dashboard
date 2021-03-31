@@ -94,7 +94,7 @@ export class MissionsService {
       });
       return;
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
     this.activeMission = this.getNewRandomMission(missionType);
     setTimeout(() => {

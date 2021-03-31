@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Options } from 'simplebar';
-import { CompilerOutput } from 'src/app/components/editor/compiler-output';
-import { SocketService } from 'src/app/services/communication/socket.service';
+import { ProjectType } from 'src/app/models/software-update';
+import { SoftwareUpdateService } from 'src/app/services/software-update/software-update.service';
 
 const startingCode = `#include <iostream>
 
@@ -20,77 +20,47 @@ int main() {
 })
 // eslint-disable-next-line @angular-eslint/component-class-suffix
 export class CodePage {
-  code = `#include <iostream>
-
-using namespace std;
-
-int main() {
-  cout << "Hello World!";
-  return 0;
-}`;
+  code = startingCode.toString();
 
   options: Options = {
     autoHide: false,
     scrollbarMinSize: 100,
   };
 
-  isBusy = false;
+  projectType: ProjectType = 'sandbox';
+  projectTypeOptions = [
+    { value: 'cdr', label: 'Critical Design Review Project' },
+    { value: 'rr', label: 'Readiness Review Project' },
+    { value: 'sandbox', label: 'Custom project coded using editor playground' },
+  ];
 
-  editorOutput: CompilerOutput | undefined;
-
-  constructor(public readonly socketService: SocketService) {}
+  constructor(public readonly service: SoftwareUpdateService) {}
 
   onResetCode(): void {
     this.code = startingCode;
   }
 
-  onCompileCode(): void {
-    this.isBusy = true;
-    this.editorOutput = {
-      status: 'loading',
-      message: 'Building the program...',
-    };
+  send(): void {
     try {
-      // TODO : Insert the logic
-      setTimeout(() => {
-        this.editorOutput = {
-          status: 'success',
-          message: 'Program built successfully !',
-        };
-        this.isBusy = false;
-      }, 1000);
+      this.service.sendProject(this.projectType, this.code);
+      this.service.logs = [
+        {
+          date: Date(),
+          message: 'Sent drone update command',
+          type: 'info',
+        },
+        ...this.service.logs,
+      ];
     } catch (error) {
-      console.log(error);
-      this.isBusy = false;
-    }
-  }
-
-  onSendCode(): void {
-    this.isBusy = true;
-    this.editorOutput = {
-      status: 'loading',
-      message: 'Sending the program...',
-    };
-    try {
-      // TODO : Insert the logic
-      setTimeout(() => {
-        this.editorOutput = {
-          status: 'success',
-          message: 'Program sent successfully !',
-        };
-        this.isBusy = false;
-      }, 1000);
-    } catch (error) {
-      console.log(error);
-      this.isBusy = false;
-    }
-  }
-
-  private wait(ms: number): void {
-    const start = Date.now();
-    let now = start;
-    while (now - start < ms) {
-      now = Date.now();
+      console.error(error);
+      this.service.logs = [
+        {
+          date: `[${new Date().toLocaleString('en-CA')}]`,
+          message: 'Unable to send drone update command',
+          type: 'error',
+        },
+        ...this.service.logs,
+      ];
     }
   }
 }

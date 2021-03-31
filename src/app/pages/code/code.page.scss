@@ -30,69 +30,6 @@ section {
   margin-bottom: 3rem;
 }
 
-section.drones-section {
-
-  h1 {
-
-    display: flex;
-    align-items: center;
-
-    .dot {
-      display: inline-block;
-      margin: 0 2rem;
-      width: 1.25rem;
-      height: 1.25rem;
-      background-color: grey;
-      border-radius: 50%;
-    }
-
-    .text-grey {
-      color: grey;
-    }
-
-  }
-
-  .robots {
-
-    height: auto;
-
-    .robots-cards {
-
-      display: flex;
-      margin-bottom: 1rem;
-
-      robot-card-component {
-        margin-right: 1rem;
-      }
-
-    }
-
-  }
-
-}
-
-section.missions-section {
-
-  .missions-title {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    button {
-      margin-left: 2rem;
-      background-color: inherit;
-      color: white;
-      padding: 0.5rem 1rem;
-      height: min-content;
-      display: flex;
-      align-items: center;
-      border: 2px solid white;
-      border-radius: 9999px;
-    }
-  }
-
-}
-
 .m-top {
   margin-top: 2rem;
 }
@@ -112,6 +49,72 @@ section.missions-section {
 .sticky-title {
   display: flex;
   align-items: center;
+  padding: 1rem 0;
+  margin: 0 -0.5rem;
+
+  > * {
+    margin: 0 0.5rem;
+  }
 }
 
+select {
+  border-radius: 0.15rem;
+  background-color: #16171b;
+  border: 2px solid white;
+  color: white;
+  width: max-content;
+  outline: none;
+  height: calc(2.25rem - 2px);
+}
 
+button.big {
+  height: 2.25rem;
+}
+
+.editor-container {
+  margin-bottom: 2rem;
+}
+
+.hidden {
+  display: none;
+}
+
+.text-success {
+  color: #01b075;
+}
+
+.text-error {
+  color: #dd0000;
+}
+
+.text-info {
+  color: #87ceeb;
+}
+
+button {
+  border: 1px solid #4a4b52;
+  border-radius: 0.25rem;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  outline: none;
+  cursor: pointer;
+}
+button.button-neutral {
+  background-color: #4a4b52;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button.button-success {
+  background-color: #01b075;
+}
+
+.log {
+  padding: 0.25rem 0rem;
+  white-space: pre-line;
+  display: flex;
+  flex-direction: column;
+}

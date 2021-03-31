@@ -91,6 +91,8 @@ section.missions-section {
       background-color: #16171b;
       border: 2px solid white;
       color: white;
+      outline: none;
+      height: calc(2.25rem - 4px);
     }
 
     button {

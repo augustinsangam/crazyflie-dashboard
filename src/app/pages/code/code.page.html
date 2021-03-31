@@ -4,20 +4,50 @@
       <connection-component></connection-component>
     </div>
     <div class="common-padding">
-      <section class="drones-section">
+      <section>
         <div class="sticky-title stick">
+          <h1>Project type</h1>
+          <select (change)="projectType = select.value" #select>
+            <option
+              *ngFor="let option of projectTypeOptions"
+              [value]="option.value"
+              [attr.selected]="projectType == option.value"
+            >
+              {{option.label}}
+            </option>
+          </select>
+          <button class="button-success big" (click)="send()">
+            Compile and Send to drones
+          </button>
+        </div>
+        <div
+          class="sticky-title stick"
+          [class.hidden]="projectType !== 'sandbox'"
+        >
           <h1>Code playground</h1>
         </div>
-        <div class="editor-container" #container>
+        <div
+          class="editor-container"
+          #container
+          [class.hidden]="projectType !== 'sandbox'"
+        >
           <editor-component
             [(value)]="code"
-            [output]="editorOutput"
-            [disableSend]="!socketService.isConnected || isBusy"
             (resetCode)="onResetCode()"
-            (compileCode)="onCompileCode()"
-            (sendCode)="onSendCode()"
           ></editor-component>
         </div>
+        <div class="sticky-title stick">
+          <h1>Logs</h1>
+          <button class="button-neutral" (click)="service.logs = []">
+            Clear
+          </button>
+        </div>
+        <p *ngIf="service.logs.length === 0">No logs to display for now</p>
+        <ng-container *ngFor="let log of service.logs">
+          <div class="log" [ngClass]="'text-'+log.type">
+            {{log.date}} <br> {{log.message}}
+          </div>
+        </ng-container>
       </section>
     </div>
   </ngx-simplebar>
