@@ -7,6 +7,13 @@ import { SocketService } from '../communication/socket.service';
 })
 export class RobotsService {
   robots: Robot[] = [];
+  // robots: Robot[] = [
+  //   {...DEFAULT_ROBOT, name: 'Drone #1'},
+  //   {...DEFAULT_ROBOT, name: 'Drone #2', yaw: 3.13},
+  //   {...DEFAULT_ROBOT, name: 'Drone #3', yaw: 6},
+  //   {...DEFAULT_ROBOT, name: 'Drone #4'},
+  //   {...DEFAULT_ROBOT, name: 'Drone #5'},
+  // ];
 
   constructor(private readonly socketService: SocketService) {
     this.socketService.robotsPulses.subscribe((robot) => {

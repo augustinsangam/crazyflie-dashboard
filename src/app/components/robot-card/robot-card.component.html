@@ -81,6 +81,15 @@
       </div>
     </div>
     <div class="robot-card-description-row">
+      <div class="icon-and-text">
+        <icon-component iconName="battery_full"></icon-component>
+        <span>Battery</span>
+      </div>
+      <div class="value text-success">
+        {{ ((data.yaw * 180 / pi) % 360).toFixed(0) }} deg
+      </div>
+    </div>
+    <div class="robot-card-description-row">
       <div class="icon-and-value">
         <icon-component iconName="near_me"></icon-component>
         <div class="value text-success position">
@@ -105,38 +114,38 @@
         </div>
       </div>
     </div>
-    <div class="robot-card-description-row" *ngIf="data.multiRange">
+    <div class="robot-card-description-row" *ngIf="data.ranges">
       <div class="icon-and-value">
         <icon-component iconName="sensors"></icon-component>
         <div class="value text-success sensors">
           <span
             >F:
             <span class="text-success">{{
-              data.multiRange[0].toFixed(2)
+              data.ranges[0].toFixed(2)
             }}</span></span
           >
           <span
             >L:
             <span class="text-success">{{
-              data.multiRange[1].toFixed(2)
+              data.ranges[1].toFixed(2)
             }}</span></span
           >
           <span
             >B:
             <span class="text-success">{{
-              data.multiRange[2].toFixed(2)
+              data.ranges[2].toFixed(2)
             }}</span></span
           >
           <span
             >R:
             <span class="text-success">{{
-              data.multiRange[3].toFixed(2)
+              data.ranges[3].toFixed(2)
             }}</span></span
           >
           <span
             >U:
             <span class="text-success">{{
-              data.multiRange[4].toFixed(2)
+              data.ranges[4].toFixed(2)
             }}</span></span
           >
         </div>

@@ -23,6 +23,7 @@ export class RobotCardComponent implements OnChanges, OnInit {
   @Output() darken = new EventEmitter<null>();
   @Output() returnToBase = new EventEmitter<null>();
   humanizedDate = 'now';
+  pi = Math.PI;
 
   ngOnInit(): void {
     setInterval(() => this.updateHumanizeDate(), 1000);
