@@ -26,14 +26,15 @@ export class MissionsService {
       this.resetTimer();
       return;
     }
-    const indexOfRobot = this.previousMissions.findIndex(
+    const index = this.previousMissions.findIndex(
       (r) => r.id === mission.id
     );
-    if (indexOfRobot === -1) {
+    if (index === -1) {
       this.previousMissions = [...this.previousMissions, mission];
+      this.previousMissions.sort((m1, m2) => m2.timestamp - m1.timestamp );
       return;
     }
-    Object.assign(this.previousMissions[indexOfRobot], mission);
+    Object.assign(this.previousMissions[index], mission);
     this.previousMissions = [...this.previousMissions];
   }
 
