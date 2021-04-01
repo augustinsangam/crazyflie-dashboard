@@ -59,7 +59,7 @@ export class SocketService {
       case 'pulse':
         this.robotsPulses.next(message.data);
         break;
-      case 'pulse':
+      case 'disconnect':
         this.robotsDisconnected.next(message.data.name);
         break;
       case 'mission':
