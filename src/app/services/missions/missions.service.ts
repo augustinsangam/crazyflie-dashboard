@@ -115,7 +115,7 @@ export class MissionsService {
     this.timer = setInterval(() => {
       if (this.activeMission) {
         this.activeMission = { ...this.activeMission, status: 'failed'};
-        this.previousMissions = [...this.previousMissions, this.activeMission];
+        this.previousMissions = [this.activeMission, ...this.previousMissions];
         this.activeMission = undefined;
       } else {
         clearInterval(this.timer);
