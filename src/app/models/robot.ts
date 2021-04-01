@@ -5,7 +5,7 @@ export interface Robot {
   battery: number;
   position: [number, number, number];
   yaw: number;
-  ranges: [number, number, number, number, number];
+  ranges: [number, number, number, number];
   flying: boolean;
   ledOn: boolean;
   real: boolean;
@@ -18,7 +18,7 @@ export const DEFAULT_ROBOT: Robot = {
   battery: 50,
   position: [0, 0, 0],
   yaw: 0,
-  ranges: [0, 0, 0, 0, 0],
+  ranges: [0, 0, 0, 0],
   flying: false,
   ledOn: false,
   real: false,
