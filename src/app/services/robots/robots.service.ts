@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Robot } from 'src/app/models/robot';
+import { Robot, RobotPulse } from 'src/app/models/robot';
 import { SocketService } from '../communication/socket.service';
 
 @Injectable({
@@ -8,11 +8,12 @@ import { SocketService } from '../communication/socket.service';
 export class RobotsService {
   robots: Robot[] = [];
   // robots: Robot[] = [
-  //   {...DEFAULT_ROBOT, name: 'Drone #1'},
-  //   {...DEFAULT_ROBOT, name: 'Drone #2', yaw: 3.13},
-  //   {...DEFAULT_ROBOT, name: 'Drone #3', yaw: 6},
-  //   {...DEFAULT_ROBOT, name: 'Drone #4'},
-  //   {...DEFAULT_ROBOT, name: 'Drone #5'},
+  //   { ...DEFAULT_ROBOT, state: 'onTheGround', name: 'Drone #1' },
+  //   { ...DEFAULT_ROBOT, state: 'takingOff', name: 'Drone #2', yaw: 3.13 },
+  //   { ...DEFAULT_ROBOT, state: 'landing', name: 'Drone #3', yaw: 6 },
+  //   { ...DEFAULT_ROBOT, state: 'crashed', name: 'Drone #4' },
+  //   { ...DEFAULT_ROBOT, state: 'exploring', name: 'Drone #5' },
+  //   { ...DEFAULT_ROBOT, state: 'returningToBase', name: 'Drone #5' },
   // ];
 
   constructor(private readonly socketService: SocketService) {
@@ -25,17 +26,17 @@ export class RobotsService {
     });
   }
 
-  onReceivedRobotUpdate(robot: Robot): void {
+  onReceivedRobotUpdate(robot: Robot | RobotPulse): void {
     const indexOfRobot = this.robots.findIndex((r) => r.name === robot.name);
     if (indexOfRobot === -1) {
-      this.robots.push(robot);
+      this.robots.push(robot as Robot);
     } else {
       Object.assign(this.robots[indexOfRobot], robot);
     }
   }
 
   onReceivedRobotDisconnection(robotName: string): void {
-    this.robots = this.robots.filter(r => r.name !== robotName);
+    this.robots = this.robots.filter((r) => r.name !== robotName);
   }
 
   takeOffRobot(robotName: string): void {
@@ -83,4 +84,12 @@ export class RobotsService {
     });
   }
 
+  cancelMission(missionId: string): void {
+    this.socketService.sendMessage({
+      type: 'stopMission',
+      data: {
+        id: missionId,
+      },
+    });
+  }
 }

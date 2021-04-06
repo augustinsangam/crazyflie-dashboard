@@ -46,7 +46,7 @@
                 {{option.label}}
               </option>
             </select>
-            <button (click)="onStartMission()">
+            <button class="icon-button" (click)="onStartMission()">
               <icon-component iconName="add"></icon-component>
               <span>Start new</span>
             </button>
@@ -54,6 +54,20 @@
         </div>
         <div class="missions">
           <h3 class="m-top">Active missions</h3>
+          <ng-container *ngIf="missionsService.activeMission">
+            <div class="button-group">
+              <button class="icon-button" (click)="onReturnToBase()">
+                <icon-component
+                  iconName="settings_input_antenna"
+                ></icon-component>
+                <span>Return to base</span>
+              </button>
+              <button class="icon-button" (click)="onCancelMission()">
+                <icon-component iconName="close"></icon-component>
+                <span>Cancel mission</span>
+              </button>
+            </div>
+          </ng-container>
           <missions-history
             [missions]="missionsService.activeMission? [missionsService.activeMission]:[]"
             [expandByDefault]="true"

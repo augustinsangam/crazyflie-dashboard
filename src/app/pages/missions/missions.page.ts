@@ -53,4 +53,12 @@ export class MissionsPage {
   onStartMission(): void {
     this.missionsService.startNewMission(this.missionType);
   }
+
+  onReturnToBase(): void {
+    this.robotService.returnToBaseRobot('*');
+  }
+
+  onCancelMission(): void {
+    this.robotService.cancelMission(this.missionsService.activeMission.id);
+  }
 }

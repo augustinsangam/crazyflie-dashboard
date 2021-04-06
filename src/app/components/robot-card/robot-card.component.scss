@@ -38,6 +38,26 @@
       }
     }
 
+    .state-indicator {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+
+      ::ng-deep chip-component {
+
+        .chip-wrapper {
+          font-size: x-small;
+        }
+
+        .indicator {
+          width: 0.75rem;
+          height: 0.75rem;
+          margin-right: 0.5rem;
+        }
+
+      }
+    }
+
     icon-component.power-on {
       ::ng-deep svg {
         fill: #01b075 !important;
@@ -62,7 +82,7 @@
     grid-template-columns: auto;
     row-gap: 0.5rem;
 
-    > * {
+    >* {
       min-width: 0;
     }
 
@@ -95,17 +115,17 @@
 
       .position {
         display: flex;
-        justify-content:space-between;
+        justify-content: space-between;
         align-items: center;
       }
 
       .sensors {
         display: flex;
-        justify-content:center;
+        justify-content: center;
         flex-wrap: wrap;
         margin: 0 -0.5rem;
 
-        > * {
+        >* {
           margin: 0 0.5rem;
         }
       }
@@ -115,7 +135,7 @@
         grid-template-columns: 1fr 1fr;
         column-gap: 0.5rem;
 
-        > * {
+        >* {
           min-width: 0;
         }
       }

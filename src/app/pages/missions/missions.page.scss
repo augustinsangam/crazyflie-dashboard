@@ -80,7 +80,7 @@ section.missions-section {
     margin-left: -0.5rem;
     margin-right: -0.5rem;
 
-    > * {
+    >* {
       margin-left: 0.5rem;
       margin-right: 0.5rem;
       height: 2.25rem;
@@ -95,18 +95,14 @@ section.missions-section {
       height: calc(2.25rem - 4px);
     }
 
-    button {
-      background-color: inherit;
-      color: white;
-      min-height: 100%;
-      padding-left: 0.5rem;
-      padding-right: 1rem;
-      display: flex;
-      align-items: center;
-      border: 2px solid white;
-      border-radius: 9999px;
-      outline: none;
-      cursor: pointer;
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: flex-end;
+
+    >* {
+      margin-left: 0.5rem;
     }
   }
 
@@ -131,4 +127,24 @@ section.missions-section {
 .sticky-title {
   display: flex;
   align-items: center;
+}
+
+.icon-button {
+  background-color: inherit;
+  color: white;
+  min-height: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 1rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  border: 2px solid white;
+  border-radius: 9999px;
+  outline: none;
+  cursor: pointer;
+
+  :first-child {
+    margin-right: 0.5rem;
+  }
 }

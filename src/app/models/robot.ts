@@ -6,9 +6,34 @@ export interface Robot {
   position: [number, number, number];
   yaw: number;
   ranges: [number, number, number, number];
-  flying: boolean;
+  state:
+    | 'onTheGround'
+    | 'takingOff'
+    | 'landing'
+    | 'crashed'
+    | 'exploring'
+    | 'returningToBase';
   ledOn: boolean;
   real: boolean;
+}
+
+export interface RobotPulse {
+  name: string;
+  timestamp: number;
+  speed?: number;
+  battery?: number;
+  position?: [number, number, number];
+  yaw?: number;
+  ranges?: [number, number, number, number];
+  state?:
+    | 'onTheGround'
+    | 'takingOff'
+    | 'landing'
+    | 'crashed'
+    | 'exploring'
+    | 'returningToBase';
+  ledOn?: boolean;
+  real?: boolean;
 }
 
 export const DEFAULT_ROBOT: Robot = {
@@ -19,7 +44,7 @@ export const DEFAULT_ROBOT: Robot = {
   position: [0, 0, 0],
   yaw: 0,
   ranges: [0, 0, 0, 0],
-  flying: false,
+  state: 'onTheGround',
   ledOn: false,
   real: false,
 };

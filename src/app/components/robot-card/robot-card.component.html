@@ -4,26 +4,26 @@
       <div
         class="util-button"
         tabindex="0"
-        title="Drone is flying. Click to make it land."
+        title="Click to send land command."
         (click)="onLand()"
       >
+        <icon-component iconName="flight_land"></icon-component>
+      </div>
+      <div
+        class="util-button"
+        tabindex="0"
+        title="Click to send take off command."
+        (click)="onTakeOff()"
+      >
         <icon-component
+          iconName="flight_takeoff"
           class="power-on"
-          iconName="flight_land"
         ></icon-component>
       </div>
       <div
         class="util-button"
         tabindex="0"
-        title="Drone is not flying. Click to make it fly."
-        (click)="onTakeOff()"
-      >
-        <icon-component iconName="flight_takeoff"></icon-component>
-      </div>
-      <div
-        class="util-button"
-        tabindex="0"
-        title="Click to make the drone return to base."
+        title="Click to send return to base command."
         (click)="onReturnToBase()"
       >
         <icon-component
@@ -46,6 +46,50 @@
           [class.power-on]="data.ledOn"
         ></icon-component>
       </div> -->
+    </div>
+    <div class="state-indicator" *ngIf="data.hasOwnProperty('state')">
+      <chip-component
+        color="#DD0000"
+        blinking="true"
+        *ngIf="data.state === 'onTheGround'"
+      >
+        On The Ground
+      </chip-component>
+      <chip-component
+        color="#87ceeb"
+        [blinking]="true"
+        *ngIf="data.state === 'takingOff'"
+      >
+        Taking Off
+      </chip-component>
+      <chip-component
+        color="#87ceeb"
+        [blinking]="true"
+        *ngIf="data.state === 'landing'"
+      >
+        Landing
+      </chip-component>
+      <chip-component
+        color="#DD0000"
+        [blinking]="false"
+        *ngIf="data.state === 'crashed'"
+      >
+        Crashed
+      </chip-component>
+      <chip-component
+        color="#01b075"
+        [blinking]="true"
+        *ngIf="data.state === 'exploring'"
+      >
+        Exploring
+      </chip-component>
+      <chip-component
+        color="#01b075"
+        [blinking]="true"
+        *ngIf="data.state === 'returningToBase'"
+      >
+        Returning To Base
+      </chip-component>
     </div>
 
     <img src="/assets/crazyfly.png" alt="" srcset="" />
@@ -95,7 +139,10 @@
         {{ (((data.yaw * 180) / pi) % 360).toFixed(0) }} deg
       </div>
     </div>
-    <div class="robot-card-description-row" *ngIf="data.hasOwnProperty('position')">
+    <div
+      class="robot-card-description-row"
+      *ngIf="data.hasOwnProperty('position')"
+    >
       <div class="icon-and-value">
         <icon-component iconName="near_me"></icon-component>
         <div class="value text-success position">
@@ -120,7 +167,10 @@
         </div>
       </div>
     </div>
-    <div class="robot-card-description-row" *ngIf="data.hasOwnProperty('ranges')">
+    <div
+      class="robot-card-description-row"
+      *ngIf="data.hasOwnProperty('ranges')"
+    >
       <div class="icon-and-value">
         <icon-component iconName="sensors"></icon-component>
         <div class="value text-success sensors">
