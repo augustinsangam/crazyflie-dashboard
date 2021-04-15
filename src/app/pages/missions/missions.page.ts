@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Options } from 'simplebar';
-import { MissionType } from 'src/app/models/mission';
+import { MissionPageRobot, MissionType } from 'src/app/models/mission';
 import { Robot } from 'src/app/models/robot';
 import { MissionsService } from 'src/app/services/missions/missions.service';
 import { RobotsService } from 'src/app/services/robots/robots.service';
@@ -17,6 +17,8 @@ export class MissionsPage {
     autoHide: false,
     scrollbarMinSize: 100,
   };
+
+  robots: MissionPageRobot[] = [];
 
   missionType: MissionType = 'fake';
   missionsTypeOptions = [
@@ -51,7 +53,7 @@ export class MissionsPage {
   }
 
   onStartMission(): void {
-    this.missionsService.startNewMission(this.missionType);
+    this.missionsService.startNewMission(this.missionType, this.robots);
   }
 
   onReturnToBase(): void {
@@ -60,5 +62,18 @@ export class MissionsPage {
 
   onCancelMission(): void {
     this.robotService.cancelMission(this.missionsService.activeMission.id);
+  }
+
+  onSelect(newValue: MissionType): void {
+    if (newValue === 'crazyradio') {
+      this.robots = this.robotService.robots.filter(r => r.real).map((r, index) => ({
+          name: r.name,
+          pos: {
+            x : -0.25 + 0.25 * index,
+            y : 0
+          }
+        }));
+    }
+    this.missionType = newValue;
   }
 }

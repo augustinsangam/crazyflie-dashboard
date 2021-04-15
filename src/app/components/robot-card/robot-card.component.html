@@ -31,21 +31,6 @@
           class="antenna"
         ></icon-component>
       </div>
-      <!-- <div
-        class="util-button"
-        tabindex="0"
-        [attr.title]="
-          data.ledOn
-            ? 'Light are on. Click to turn off.'
-            : 'Light are off. Click to make turn on.'
-        "
-        (click)="onLedClick()"
-      >
-        <icon-component
-          iconName="lightbulb"
-          [class.power-on]="data.ledOn"
-        ></icon-component>
-      </div> -->
     </div>
     <div class="state-indicator" *ngIf="data.hasOwnProperty('state')">
       <chip-component
@@ -90,6 +75,23 @@
       >
         Returning To Base
       </chip-component>
+    </div>
+    <div class="led-indicator" *ngIf="data.real">
+      <div
+      class="util-button"
+      tabindex="0"
+      [attr.title]="
+        data.ledOn
+          ? 'Light are on. Click to turn off.'
+          : 'Light are off. Click to make turn on.'
+      "
+      (click)="onLedClick()"
+    >
+      <icon-component
+        iconName="lightbulb"
+        [class.power-on]="data.ledOn"
+      ></icon-component>
+    </div>
     </div>
 
     <img src="/assets/crazyfly.png" alt="" srcset="" />

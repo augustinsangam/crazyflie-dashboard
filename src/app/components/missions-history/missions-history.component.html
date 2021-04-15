@@ -42,14 +42,17 @@
         <td colspan="4">
           <div class="center flex-column">
             <div class="drone-list">
-              Drones :
-              <chip-component
-                *ngFor="let drone of mission.drones"
-                [blinking]="false"
-                [color]="drone.color"
-                [showIndicator]="false"
-                >{{ drone.name }}
-              </chip-component>
+              <p>Drones :</p>
+              <div>
+                <chip-component
+                  *ngFor="let drone of mission.drones"
+                  [blinking]="false"
+                  [color]="drone.color"
+                  [showIndicator]="false"
+                  >{{ drone.name }}
+                </chip-component>
+              </div>
+
             </div>
             <div>Below is the map generated during the exploration</div>
             <svg viewBox="-2 -2 4 4">

@@ -8,11 +8,18 @@ import { SocketService } from '../communication/socket.service';
 export class RobotsService {
   robots: Robot[] = [];
   // robots: Robot[] = [
-  //   { ...DEFAULT_ROBOT, state: 'onTheGround', name: 'Drone #1' },
+  //   { ...DEFAULT_ROBOT, state: 'onTheGround', name: 'Drone #1', real: true },
   //   { ...DEFAULT_ROBOT, state: 'takingOff', name: 'Drone #2', yaw: 3.13 },
-  //   { ...DEFAULT_ROBOT, state: 'landing', name: 'Drone #3', yaw: 6 },
+  //   {
+  //     ...DEFAULT_ROBOT,
+  //     state: 'landing',
+  //     name: 'Drone #3',
+  //     yaw: 6,
+  //     real: true,
+  //     ledOn: true,
+  //   },
   //   { ...DEFAULT_ROBOT, state: 'crashed', name: 'Drone #4' },
-  //   { ...DEFAULT_ROBOT, state: 'exploring', name: 'Drone #5' },
+  //   { ...DEFAULT_ROBOT, state: 'exploring', name: 'Drone #5', real: true },
   //   { ...DEFAULT_ROBOT, state: 'returningToBase', name: 'Drone #5' },
   // ];
 

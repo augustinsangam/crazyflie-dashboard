@@ -100,9 +100,67 @@ section.missions-section {
   .button-group {
     display: flex;
     justify-content: flex-end;
+    margin-bottom: 0.5rem ;
 
     >* {
       margin-left: 0.5rem;
+    }
+  }
+
+  .start-new {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+    flex-wrap: wrap;
+
+    >* {
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
+      height: calc(2.25rem - 4px);
+    }
+
+    select {
+      border-radius: 0.15rem;
+      background-color: #16171b;
+      border: 2px solid white;
+      color: white;
+      outline: none;
+    }
+
+    .drone-initial-pos {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      align-items: center;
+      height: fit-content;
+      margin-bottom: 0.20rem;
+
+      .input-group {
+
+        margin-bottom: 0.5rem;
+        margin-left: -0.15rem;
+        margin-right: -0.15rem;
+
+        input {
+          border-radius: 0.15rem;
+          height: calc(2.25rem - 8px);
+          width: 4rem;
+          padding: 0;
+          margin: 0;
+          background-color: #16171b;
+          border: 2px solid white;
+          color: white;
+          outline: none;
+          margin-left: 0.15rem;
+          margin-right: 0.15rem;
+          padding-left: 0.25rem;
+          padding-right: 0.25rem;
+          text-align: center;
+        }
+
+      }
     }
   }
 

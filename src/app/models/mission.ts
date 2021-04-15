@@ -33,3 +33,11 @@ export interface MissionPulse {
   shapes?: Vec2[][];
   points?: { droneName: string; value: Vec2 }[];
 }
+
+export interface MissionPageRobot {
+  name: string;
+  pos: {
+    x: number;
+    y: number;
+  };
+}

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Mission, MissionPulse, MissionType } from 'src/app/models/mission';
+import { Mission, MissionPageRobot, MissionPulse, MissionType } from 'src/app/models/mission';
 import { SocketService } from '../communication/socket.service';
 
 @Injectable({
@@ -85,13 +85,20 @@ export class MissionsService {
     }
   }
 
-  startNewMission(missionType: MissionType): void {
+  startNewMission(missionType: MissionType, robots: MissionPageRobot[]): void {
     try {
+      const data: any = {
+        type: missionType,
+      };
+      if (missionType === 'crazyradio' && robots && robots.length > 0) {
+        data.dronesPositions = {};
+        for (const robot of robots) {
+          data.dronesPositions[robot.name] = robot.pos;
+        }
+      }
       this.socketService.sendMessage({
         type: 'startMission',
-        data: {
-          type: missionType,
-        },
+        data,
       });
       return;
     } catch (error) {

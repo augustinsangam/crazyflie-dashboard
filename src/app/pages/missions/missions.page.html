@@ -36,8 +36,10 @@
       <section class="missions-section">
         <div class="missions-title sticky-title stick">
           <h1>Missions</h1>
-          <ng-container *ngIf="!missionsService.activeMission">
-            <select (change)="missionType = select.value" #select>
+        </div>
+        <div class="missions">
+          <div *ngIf="!missionsService.activeMission" class="start-new">
+            <select (change)="onSelect(select.value)" #select>
               <option
                 *ngFor="let option of missionsTypeOptions"
                 [value]="option.value"
@@ -46,13 +48,20 @@
                 {{option.label}}
               </option>
             </select>
+            <ng-container *ngIf="missionType == 'crazyradio'">
+              <div *ngFor="let drone of robots" class="drone-initial-pos">
+                <div class="input-group">
+                  <input type="number" placeholder="x" [(ngModel)]="drone.pos.x" step="0.05">
+                  <input type="number" placeholder="y" [(ngModel)]="drone.pos.y" step="0.05">
+                </div>
+                <div>{{drone.name}}</div>
+              </div>
+            </ng-container>
             <button class="icon-button" (click)="onStartMission()">
               <icon-component iconName="add"></icon-component>
               <span>Start new</span>
             </button>
-          </ng-container>
-        </div>
-        <div class="missions">
+          </div>
           <h3 class="m-top">Active missions</h3>
           <ng-container *ngIf="missionsService.activeMission">
             <div class="button-group">
