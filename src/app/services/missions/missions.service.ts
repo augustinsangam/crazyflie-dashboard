@@ -31,7 +31,7 @@ export class MissionsService {
     );
     if (index === -1) {
       this.previousMissions = [...this.previousMissions, mission];
-      this.previousMissions.sort((m1, m2) => m2.timestamp - m1.timestamp );
+      this.previousMissions.sort((m1, m2) => m2.timestamp - m1.timestamp);
       return;
     }
     Object.assign(this.previousMissions[index], mission);
@@ -77,7 +77,7 @@ export class MissionsService {
       activeMission.points = [...activeMission.points, ...mission.points];
     }
 
-    if (activeMission.status === 'done') {
+    if (activeMission.status === 'done' || activeMission.status === 'failed') {
       this.previousMissions = [activeMission, ...this.previousMissions];
       this.activeMission = undefined;
     } else {
@@ -122,14 +122,14 @@ export class MissionsService {
     }
     this.timer = setInterval(() => {
       if (this.activeMission) {
-        this.activeMission = { ...this.activeMission, status: 'failed'};
+        this.activeMission = { ...this.activeMission, status: 'failed' };
         this.previousMissions = [this.activeMission, ...this.previousMissions];
         this.activeMission = undefined;
       } else {
         clearInterval(this.timer);
         this.timer = undefined;
       }
-    }, 5000);
+    }, 120000);
   }
 
   private getNewRandomMission(missionType: MissionType): Mission {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Robot, RobotPulse } from 'src/app/models/robot';
+import { DEFAULT_ROBOT, Robot, RobotPulse } from 'src/app/models/robot';
 import { SocketService } from '../communication/socket.service';
 
 @Injectable({
