@@ -52,7 +52,7 @@ section {
   padding: 1rem 0;
   margin: 0 -0.5rem;
 
-  > * {
+  >* {
     margin: 0 0.5rem;
   }
 }
@@ -99,6 +99,7 @@ button {
   outline: none;
   cursor: pointer;
 }
+
 button.button-neutral {
   background-color: #4a4b52;
 }
@@ -113,8 +114,7 @@ button.button-success {
 }
 
 .log {
-  padding: 0.25rem 0rem;
   white-space: pre-line;
   display: flex;
-  flex-direction: column;
+  font-family: 'Ubuntu Mono';
 }

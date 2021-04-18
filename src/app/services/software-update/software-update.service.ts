@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   ClientLog,
   ProjectType,
-  ServerLog
+  ServerLog,
 } from 'src/app/models/software-update';
 import { SocketService } from '../communication/socket.service';
 
@@ -24,7 +24,7 @@ export class SoftwareUpdateService {
       data.code = code;
     }
     this.socketService.sendMessage({
-      type: 'takeOff',
+      type: 'loadProject',
       data,
     });
   }
@@ -32,9 +32,9 @@ export class SoftwareUpdateService {
   private onReceiveLog(data: ServerLog): void {
     this.logs = [
       {
-        date: Date(),
+        date: new Date().toISOString(),
         message: data.log,
-        type: 'info',
+        type: data.type,
       },
       ...this.logs,
     ];

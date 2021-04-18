@@ -20,12 +20,14 @@ extern "C" {
 }
 
 void appMain() {
-	while (true) {
+  // Toggle LEDs indefinitely
+	for (;;) {
 		DEBUG_PRINT("Setting all leds\\n");
 		ledSetAll();
 		vTaskDelay(M2T(1000));
 		DEBUG_PRINT("Clearing all leds\\n");
 		ledClearAll();
+		vTaskDelay(M2T(1000));
 	}
 }
 `;
@@ -63,7 +65,7 @@ export class CodePage {
       this.service.sendProject(this.projectType, this.code);
       this.service.logs = [
         {
-          date: Date(),
+          date: new Date().toISOString(),
           message: 'Sent drone update command',
           type: 'info',
         },
@@ -73,7 +75,7 @@ export class CodePage {
       console.error(error);
       this.service.logs = [
         {
-          date: `[${new Date().toLocaleString('en-CA')}]`,
+          date: new Date().toISOString(),
           message: 'Unable to send drone update command',
           type: 'error',
         },

@@ -77,7 +77,7 @@ export class MissionsService {
       activeMission.points = [...activeMission.points, ...mission.points];
     }
 
-    if (activeMission.status === 'done' || activeMission.status === 'failed') {
+    if (activeMission.status !== 'inProgress') {
       this.previousMissions = [activeMission, ...this.previousMissions];
       this.activeMission = undefined;
     } else {

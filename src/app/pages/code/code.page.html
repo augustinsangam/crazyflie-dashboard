@@ -44,8 +44,8 @@
         </div>
         <p *ngIf="service.logs.length === 0">No logs to display for now</p>
         <ng-container *ngFor="let log of service.logs">
-          <div class="log" [ngClass]="'text-'+log.type">
-            {{log.date}} <br />
+          <div class="log">
+            <span [ngClass]="'text-'+log.type">{{log.date}} &nbsp;</span>
             {{log.message}}
           </div>
         </ng-container>
