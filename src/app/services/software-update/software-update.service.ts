@@ -32,7 +32,7 @@ export class SoftwareUpdateService {
   private onReceiveLog(data: ServerLog): void {
     this.logs = [
       {
-        date: new Date().toISOString(),
+        date: new Date(data.timestamp * 1000).toISOString(),
         message: data.log,
         type: data.type,
       },
