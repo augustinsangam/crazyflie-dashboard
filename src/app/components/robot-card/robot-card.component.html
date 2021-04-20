@@ -71,6 +71,13 @@
       <chip-component
         color="#01b075"
         [blinking]="true"
+        *ngIf="data.state === 'standBy'"
+      >
+        Stand By
+      </chip-component>
+      <chip-component
+        color="#01b075"
+        [blinking]="true"
         *ngIf="data.state === 'returningToBase'"
       >
         Returning To Base
@@ -78,20 +85,20 @@
     </div>
     <div class="led-indicator" *ngIf="data.real">
       <div
-      class="util-button"
-      tabindex="0"
-      [attr.title]="
-        data.ledOn
-          ? 'Light are on. Click to turn off.'
-          : 'Light are off. Click to make turn on.'
-      "
-      (click)="onLedClick()"
-    >
-      <icon-component
-        iconName="lightbulb"
-        [class.power-on]="data.ledOn"
-      ></icon-component>
-    </div>
+        class="util-button"
+        tabindex="0"
+        [attr.title]="
+          data.ledOn
+            ? 'Light are on. Click to turn off.'
+            : 'Light are off. Click to make turn on.'
+        "
+        (click)="onLedClick()"
+      >
+        <icon-component
+          iconName="lightbulb"
+          [class.power-on]="data.ledOn"
+        ></icon-component>
+      </div>
     </div>
 
     <img src="/assets/crazyfly.png" alt="" srcset="" />

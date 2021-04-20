@@ -43,12 +43,21 @@ table {
       margin-bottom: 0.5rem;
     }
 
-    > * {
+    >* {
       margin: 0 0.5rem;
     }
   }
 
-  svg {
+  .checkbox-list {
+    display: flex;
+    margin: 0.25rem -0.5rem;
+
+    >* {
+      margin: 0 0.5rem;
+    }
+  }
+
+  map-component {
     width: min(50vh, 50vw);
     height: min(50vh, 50vw);
     margin: 1rem;

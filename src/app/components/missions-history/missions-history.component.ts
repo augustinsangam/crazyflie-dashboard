@@ -1,9 +1,11 @@
 import {
   AfterViewInit,
   Component,
+  ElementRef,
   Input,
   OnChanges,
-  SimpleChanges
+  SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { relativeTime } from 'human-date';
 import { Mission, Vec2 } from 'src/app/models/mission';
@@ -39,9 +41,21 @@ interface ModifiedMissionPoints {
   value: Vec2;
 }
 
-interface ModifiedMission {
+/**
+ * Interface to describe a map as it will be display in the canvas
+ */
+export interface MissionMap {
+  /**
+   * The mission id
+   */
   id: string;
+  /**
+   * Humanized mission data
+   */
   date: string;
+  /**
+   * The mission type. Values is 'Done', 'Failed' , 'Requested' or 'Rejected'
+   */
   type: string;
   status: ModifiedMissionStatus;
   drones: ModifiedMissionDrone[];
@@ -49,7 +63,12 @@ interface ModifiedMission {
   dronesPaths: ModifiedMissionDronePath[];
   shapes: ModifiedMissionShape[];
   points: ModifiedMissionPoints[];
+  /**
+   * Show whether the table column is expanded or not
+   */
   isExpanded: boolean;
+  showDronesPath: boolean;
+  showBorders: boolean;
 }
 
 @Component({
@@ -59,10 +78,15 @@ interface ModifiedMission {
   styleUrls: ['./missions-history.component.scss'],
 })
 export class MissionsHistoryComponent implements OnChanges, AfterViewInit {
+  @ViewChild('svg', {
+    static: false,
+  })
+  svgRef: ElementRef<SVGSVGElement>;
+
   @Input() missions: Mission[] = [];
   @Input() expandByDefault = false;
-  missionsModified: ModifiedMission[] = [];
-  latestExpandedMission: ModifiedMission;
+  missionsModified: MissionMap[] = [];
+  latestExpandedMission: MissionMap;
 
   ngAfterViewInit(): void {
     setInterval(() => {
@@ -74,7 +98,7 @@ export class MissionsHistoryComponent implements OnChanges, AfterViewInit {
     if (!changes.missions) {
       return;
     }
-    const newMissionsModified: ModifiedMission[] = [];
+    const newMissionsModified: MissionMap[] = [];
     for (const mission of changes.missions.currentValue as Mission[]) {
       const previousMission = (
         (changes.missions.previousValue as Mission[]) || []
@@ -83,7 +107,7 @@ export class MissionsHistoryComponent implements OnChanges, AfterViewInit {
         (m) => m.id === mission.id
       );
       if (!previousMission || !previousModifiedMission) {
-        const modifiedMission: ModifiedMission = {
+        const modifiedMission: MissionMap = {
           id: mission.id,
           date: relativeTime(new Date(mission.timestamp * 1000)),
           type: this.getMissionType(mission),
@@ -94,12 +118,14 @@ export class MissionsHistoryComponent implements OnChanges, AfterViewInit {
           shapes: this.getMissionShapes(mission),
           points: this.getMissionPoints(mission),
           isExpanded: this.expandByDefault,
+          showDronesPath: true,
+          showBorders: true,
         };
         newMissionsModified.push(modifiedMission);
       } else {
         const attrChanged = (attrName: string) =>
           previousMission[attrName] !== mission[attrName];
-        const modifiedMission: ModifiedMission = {
+        const modifiedMission: MissionMap = {
           id: mission.id,
           date: relativeTime(new Date(mission.timestamp * 1000)),
           type: attrChanged('type')
@@ -124,6 +150,8 @@ export class MissionsHistoryComponent implements OnChanges, AfterViewInit {
             ? this.getMissionPoints(mission)
             : previousModifiedMission.points,
           isExpanded: previousModifiedMission.isExpanded,
+          showDronesPath: previousModifiedMission.showDronesPath,
+          showBorders: previousModifiedMission.showBorders,
         };
         newMissionsModified.push(modifiedMission);
       }
@@ -223,7 +251,7 @@ export class MissionsHistoryComponent implements OnChanges, AfterViewInit {
     }));
   }
 
-  onExpand(mission: ModifiedMission, tableRow: HTMLElement): void {
+  onExpand(mission: MissionMap, tableRow: HTMLElement): void {
     if (['Requested', 'Rejected'].includes(mission.status.label)) {
       return;
     }

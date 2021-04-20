@@ -49,7 +49,6 @@ export class CodePage {
 
   projectType: ProjectType = 'sandbox';
   projectTypeOptions = [
-    { value: 'cdr', label: 'Critical Design Review Project' },
     { value: 'rr', label: 'Readiness Review Project' },
     { value: 'sandbox', label: 'Custom project coded using editor playground' },
   ];

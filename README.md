@@ -1,6 +1,6 @@
 # Dashboard
 
-Official dashboard for drones' server.
+Official dashboard for drones.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.7.
 

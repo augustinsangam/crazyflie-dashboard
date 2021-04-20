@@ -9,6 +9,7 @@ import { ChipComponent } from './components/chip/chip.component';
 import { ConnectionComponent } from './components/connection/connection.component';
 import { EditorComponent } from './components/editor/editor.component';
 import { IconComponent } from './components/icon/icon.component';
+import { MapComponent } from './components/map/map.component';
 import { MissionsHistoryComponent } from './components/missions-history/missions-history.component';
 import { RobotCardComponent } from './components/robot-card/robot-card.component';
 import { RoutingModule } from './modules/routing.module';
@@ -23,6 +24,7 @@ const components = [
   ConnectionComponent,
   EditorComponent,
   IconComponent,
+  MapComponent,
   MissionsHistoryComponent,
   RobotCardComponent,
 ];

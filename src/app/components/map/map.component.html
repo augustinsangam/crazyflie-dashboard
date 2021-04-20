@@ -1,0 +1,67 @@
+<svg
+  [attr.viewBox]="
+    mission.type === 'Crazyradio Simulation' ? '-5 -5 10 10' : '-2 -2 4 4'
+  "
+  #svg
+>
+  <g *ngIf="mission.showBorders">
+    <path
+      *ngFor="let shape of mission.shapes"
+      [attr.d]="shape.dPath"
+      stroke="#80808030"
+      [attr.fill]="shape.closed ? '#80808030' : 'none'"
+      stroke-width="0.02"
+    />
+    <circle
+      *ngFor="let point of mission.points"
+      [attr.fill]="point.color"
+      [attr.cx]="point.value.x"
+      [attr.cy]="point.value.y"
+      r="0.02"
+    />
+  </g>
+  <g *ngIf="mission.showDronesPath">
+    <path
+      *ngFor="let dronePath of mission.dronesPaths"
+      [attr.d]="dronePath.dPath"
+      [attr.stroke]="dronePath.color"
+      stroke-width="0.02"
+      stroke-opacity="0.15"
+      fill-opacity="0"
+      stroke-linejoin="round"
+    />
+  </g>
+  <use
+    *ngFor="let dronePosition of mission.dronesPositions"
+    xlink:href="/assets/symbols.svg#drone"
+    [attr.x]="
+      dronePosition.pos.x === 0 ? -0.1 : (dronePosition.pos.x || -2) - 0.1
+    "
+    [attr.y]="
+      dronePosition.pos.y === 0 ? -0.1 : (dronePosition.pos.y || -2) - 0.1
+    "
+    width="0.20"
+    height="0.20"
+    [attr.fill]="dronePosition.color"
+  />
+  <line
+    x1="0"
+    y1="-400"
+    x2="0"
+    y2="400"
+    stroke="grey"
+    stroke-width="0.02"
+    stroke-dasharray="0.05 0.05"
+    stroke-opacity="0.10"
+  />
+  <line
+    x1="-400"
+    y1="0"
+    x2="400"
+    y2="0"
+    stroke="grey"
+    stroke-width="0.02"
+    stroke-dasharray="0.05 0.05"
+    stroke-opacity="0.10"
+  />
+</svg>

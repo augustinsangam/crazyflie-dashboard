@@ -24,7 +24,6 @@ export class MissionsPage {
   missionsTypeOptions = [
     { value: 'argos', label: 'ARGoS based mission' },
     { value: 'crazyradio', label: 'Crazyradio based mission' },
-    { value: 'fake', label: 'Fake mission' },
   ];
 
   constructor(
@@ -66,12 +65,14 @@ export class MissionsPage {
 
   onSelect(newValue: MissionType): void {
     if (newValue === 'crazyradio') {
-      this.robots = this.robotService.robots.filter(r => r.real).map((r, index) => ({
+      this.robots = this.robotService.robots
+        .filter((r) => r.real)
+        .map((r, index) => ({
           name: r.name,
           pos: {
-            x : -0.25 + 0.25 * index,
-            y : 0
-          }
+            x: -0.25 + 0.25 * index,
+            y: 0,
+          },
         }));
     }
     this.missionType = newValue;

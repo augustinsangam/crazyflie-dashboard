@@ -5,7 +5,7 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
 import { relativeTime } from 'human-date';
 import { DEFAULT_ROBOT, Robot } from 'src/app/models/robot';
@@ -56,6 +56,7 @@ export class RobotCardComponent implements OnChanges, OnInit {
   }
 
   private updateHumanizeDate(): void {
-    this.humanizedDate = relativeTime(new Date(this.data.timestamp * 1000));
+    const str = relativeTime(new Date(this.data.timestamp * 1000));
+    this.humanizedDate = str.trim() === 'ago' ? 'now' : str;
   }
 }

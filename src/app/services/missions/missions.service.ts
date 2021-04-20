@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Mission, MissionPageRobot, MissionPulse, MissionType } from 'src/app/models/mission';
+import {
+  Mission,
+  MissionPageRobot,
+  MissionPulse,
+  MissionType,
+} from 'src/app/models/mission';
 import { SocketService } from '../communication/socket.service';
 
 @Injectable({
@@ -26,9 +31,7 @@ export class MissionsService {
       this.resetTimer();
       return;
     }
-    const index = this.previousMissions.findIndex(
-      (r) => r.id === mission.id
-    );
+    const index = this.previousMissions.findIndex((r) => r.id === mission.id);
     if (index === -1) {
       this.previousMissions = [...this.previousMissions, mission];
       this.previousMissions.sort((m1, m2) => m2.timestamp - m1.timestamp);
