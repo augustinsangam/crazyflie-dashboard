@@ -20,8 +20,9 @@ export class MissionsPage {
 
   robots: MissionPageRobot[] = [];
 
-  missionType: MissionType = 'fake';
+  missionType: MissionType | '-' = '-';
   missionsTypeOptions = [
+    { value: '-', label: '-' },
     { value: 'argos', label: 'ARGoS based mission' },
     { value: 'crazyradio', label: 'Crazyradio based mission' },
   ];
@@ -52,7 +53,23 @@ export class MissionsPage {
   }
 
   onStartMission(): void {
-    this.missionsService.startNewMission(this.missionType, this.robots);
+    if (this.missionType === '-') {
+      window.alert('You should specify either argos or crazyradio mission');
+      return;
+    }
+    let robotsToSend: MissionPageRobot[] = [];
+    if (this.missionType === 'argos') {
+      robotsToSend = this.robots.map((r) => ({
+        name: r.name,
+        pos: { x: r.pos.y, y: r.pos.x },
+      }));
+    } else if (this.missionType === 'crazyradio') {
+      robotsToSend = this.robots.map((r) => ({
+        name: r.name,
+        pos: { x: r.pos.x, y: -r.pos.y },
+      }));
+    }
+    this.missionsService.startNewMission(this.missionType, robotsToSend);
   }
 
   onReturnToBase(): void {
@@ -66,13 +83,27 @@ export class MissionsPage {
   onSelect(newValue: MissionType): void {
     if (newValue === 'crazyradio') {
       this.robots = this.robotService.robots
+        .sort((a, b) => a.name.localeCompare(b.name))
         .filter((r) => r.real)
+        .map((r) => ({
+          name: r.name,
+          pos: { x: 0, y: 0 },
+        }));
+    }
+    if (newValue === 'argos') {
+      const placeholders = [
+        { x: -0.2, y: 0 },
+        { x: 0.2, y: 0 },
+        { x: 0, y: 0.2 },
+        { x: 0, y: -0.2 },
+      ];
+      this.robots = this.robotService.robots
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .filter((r) => !r.real)
         .map((r, index) => ({
           name: r.name,
-          pos: {
-            x: -0.25 + 0.25 * index,
-            y: 0,
-          },
+          pos:
+            index < placeholders.length ? placeholders[index] : { x: 0, y: 0 },
         }));
     }
     this.missionType = newValue;

@@ -23,12 +23,12 @@ export class SocketService {
 
   sendMessage(message: { type: string; data: any }): void {
     const messageStr = JSON.stringify(message);
-    console.log('Sending message', messageStr);
+    // console.log('Sending message', messageStr);
     if (!this.isConnected) {
       throw Error('Socket not connected to server');
     }
     this.socket.send(messageStr);
-    console.log('Sent message', messageStr);
+    // console.log('Sent message', messageStr);
   }
 
   private open(): void {
@@ -39,7 +39,7 @@ export class SocketService {
       this.isConnected = true;
     };
     this.socket.onmessage = (event) => {
-      console.log('Message from server ', event.data);
+      // console.log('Message from server ', event.data);
       this.onReceiveMessage(JSON.parse(event.data));
     };
     this.socket.onclose = () => {

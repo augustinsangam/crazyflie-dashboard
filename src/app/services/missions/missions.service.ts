@@ -93,7 +93,7 @@ export class MissionsService {
       const data: any = {
         type: missionType,
       };
-      if (missionType === 'crazyradio' && robots && robots.length > 0) {
+      if (robots && robots.length > 0) {
         data.dronesPositions = {};
         for (const robot of robots) {
           data.dronesPositions[robot.name] = robot.pos;

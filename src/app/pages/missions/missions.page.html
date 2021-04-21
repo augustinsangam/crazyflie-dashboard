@@ -48,11 +48,21 @@
                 {{option.label}}
               </option>
             </select>
-            <ng-container *ngIf="missionType == 'crazyradio'">
+            <ng-container *ngIf="missionType !== ''">
               <div *ngFor="let drone of robots" class="drone-initial-pos">
                 <div class="input-group">
-                  <input type="number" placeholder="x" [(ngModel)]="drone.pos.x" step="0.05">
-                  <input type="number" placeholder="y" [(ngModel)]="drone.pos.y" step="0.05">
+                  <input
+                    type="number"
+                    placeholder="x"
+                    [(ngModel)]="drone.pos.x"
+                    step="0.05"
+                  />
+                  <input
+                    type="number"
+                    placeholder="y"
+                    [(ngModel)]="drone.pos.y"
+                    step="0.05"
+                  />
                 </div>
                 <div>{{drone.name}}</div>
               </div>
