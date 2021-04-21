@@ -7,8 +7,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Docker
 
-- Build the image : `docker build -t crazyfly-project-dashboard:latest .`
-- Run a container : `docker run -id --name crazyfly-project-dashboard -p 4200:80 crazyfly-project-dashboard`
+- Build the image : `docker build -t crazyfly-dashboard .`
+- Run a container : `docker run -it -p 4200:4200 -v "${PWD}:/dashboard:ro" crazyfly-dashboard`
 
 ## Development server
 
